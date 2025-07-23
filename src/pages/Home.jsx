@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import Header from '../components/Header'
-import PerroCard from '../components/PerroCard'
-import { obtenerPerros } from '../services/perrosService'
+import PerroCard from '../components/PerroCard/PerroCard'
+import { obtenerPerros } from '../services/PerrosService'
+import styles from './Home.module.css'
 
 const Home = () => {
   const [perros, setPerros] = useState([])
@@ -13,7 +14,7 @@ const Home = () => {
   return (
     <>
       <Header />
-      <div className="cards-container">
+      <div className={styles.wrapper}>
         {perros.map(perro => (
           <PerroCard key={perro.id} perro={perro} />
         ))}

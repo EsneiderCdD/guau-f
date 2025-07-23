@@ -23,6 +23,145 @@
       "edad": 4,
       "descripcion": "Muy curioso y activo",
       "imagen": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 4,
+      "nombre": "Bella",
+      "raza": "Bulldog",
+      "edad": 5,
+      "descripcion": "Fiel y protectora",
+      "imagen": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 5,
+      "nombre": "Rocky",
+      "raza": "Pastor Alemán",
+      "edad": 6,
+      "descripcion": "Inteligente y leal",
+      "imagen": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 6,
+      "nombre": "Coco",
+      "raza": "Chihuahua",
+      "edad": 1,
+      "descripcion": "Pequeño y valiente",
+      "imagen": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 7,
+      "nombre": "Duke",
+      "raza": "Golden Retriever",
+      "edad": 3,
+      "descripcion": "Amigable y juguetón",
+      "imagen": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 8,
+      "nombre": "Zoe",
+      "raza": "Poodle",
+      "edad": 2,
+      "descripcion": "Elegante y cariñosa",
+      "imagen": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 9,
+      "nombre": "Toby",
+      "raza": "Boxer",
+      "edad": 4,
+      "descripcion": "Fuerte y leal",
+      "imagen": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 10,
+      "nombre": "Molly",
+      "raza": "Cocker Spaniel",
+      "edad": 5,
+      "descripcion": "Dulce y juguetona",
+      "imagen": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 11,
+      "nombre": "Charlie",
+      "raza": "Dachshund",
+      "edad": 3,
+      "descripcion": "Divertido y curioso",
+      "imagen": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 12,
+      "nombre": "Sadie",
+      "raza": "Shih Tzu",
+      "edad": 2,
+      "descripcion": "Amorosa y tranquila",
+      "imagen": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 13,
+      "nombre": "Bailey",
+      "raza": "Rottweiler",
+      "edad": 6,
+      "descripcion": "Fuerte y protector",
+      "imagen": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 14,
+      "nombre": "Lola",
+      "raza": "Yorkshire Terrier",
+      "edad": 1,
+      "descripcion": "Pequeña y enérgica",
+      "imagen": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 15,
+      "nombre": "Buddy",
+      "raza": "Schnauzer",
+      "edad": 4,
+      "descripcion": "Leal y juguetón",
+      "imagen": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 16,
+      "nombre": "Roxy",
+      "raza": "Australian Shepherd",
+      "edad": 3,
+      "descripcion": "Inteligente y activa",
+      "imagen": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 17,
+      "nombre": "Chester",
+      "raza": "Corgi",
+      "edad": 2,
+      "descripcion": "Divertido y cariñoso",
+      "imagen": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 18,
+      "nombre": "Ginger",
+      "raza": "Boston Terrier",
+      "edad": 5,
+      "descripcion": "Amigable y juguetona",
+      "imagen": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 19,
+      "nombre": "Oscar",
+      "raza": "Maltés",
+      "edad": 1,
+      "descripcion": "Pequeño y cariñoso",
+      "imagen": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 20,
+      "nombre": "Ruby",
+      "raza": "Pug",
+      "edad": 3,
+      "descripcion": "Divertida y amigable",
+      "imagen": "https://via.placeholder.com/150"
     }
+
+
+
   ]
 }

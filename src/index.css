@@ -1,0 +1,88 @@
+/* =============================
+   RESET GENERAL
+   ============================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* =============================
+   VARIABLES GLOBALS (THEME BASE)
+   ============================= */
+:root {
+  /* === Tipografía === */
+  --font-family-base: 'Segoe UI', sans-serif;
+  --font-size-sm: 0.875rem;  /* 14px */
+  --font-size-base: 1rem;    /* 16px */
+  --font-size-md: 1.25rem;   /* 20px */
+  --font-size-lg: 1.5rem;    /* 24px */
+  --font-size-xl: 2rem;      /* 32px */
+
+  /* === Colores === */
+  --color-bg: #f8f9fa;            /* fondo general */
+  --color-surface: #ffffff;       /* para bloques blancos */
+  --color-text: #2d3436;          /* texto principal */
+  --color-muted: #636e72;         /* texto grisado */
+  --color-primary: #0984e3;       /* azul principal */
+  --color-secondary: #6c5ce7;     /* acento violeta */
+  --color-accent: #00b894;        /* verde suave */
+
+  /* === Espaciado === */
+  --spacing-xs: 0.25rem;   /* 4px */
+  --spacing-sm: 0.5rem;    /* 8px */
+  --spacing-md: 1rem;      /* 16px */
+  --spacing-lg: 2rem;      /* 32px */
+  --spacing-xl: 4rem;      /* 64px */
+
+  /* === Otros === */
+  --border-radius: 0.5rem;      /* 8px */
+  --transition-fast: 0.2s ease;
+  --transition-slow: 0.4s ease;
+  --container-max-width: 1200px;
+}
+
+/* =============================
+   ESTILOS BASE
+   ============================= */
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-primary);
+}
+
+/* =============================
+   CONTENEDOR BASE OPCIONAL
+   ============================= */
+.container {
+  width: 90%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: var(--spacing-md);
+}
+
+/* =============================
+   UTILITARIOS (opcionales básicos)
+   ============================= */
+.text-center {
+  text-align: center;
+}
+
+.hidden {
+  display: none !important;
+}
