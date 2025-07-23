@@ -1,0 +1,28 @@
+{
+  "perros": [
+    {
+      "id": 1,
+      "nombre": "Firulais",
+      "raza": "Labrador",
+      "edad": 3,
+      "descripcion": "Juguetón y amigable",
+      "imagen": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 2,
+      "nombre": "Luna",
+      "raza": "Husky",
+      "edad": 2,
+      "descripcion": "Tranquila y cariñosa",
+      "imagen": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 3,
+      "nombre": "Max",
+      "raza": "Beagle",
+      "edad": 4,
+      "descripcion": "Muy curioso y activo",
+      "imagen": "https://via.placeholder.com/150"
+    }
+  ]
+}
