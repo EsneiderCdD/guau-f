@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import Header from '../components/Header'
+import Navbar from '../components/Navbar/Navbar'
+import Header from '../components/Header/Header'
 import PerroCard from '../components/PerroCard/PerroCard'
 import { obtenerPerros } from '../services/PerrosService'
 import styles from './Home.module.css'
@@ -13,7 +14,10 @@ const Home = () => {
 
   return (
     <>
-      <Header />
+        <Navbar />
+            
+        <Header />
+    
       <div className={styles.wrapper}>
         {perros.map(perro => (
           <PerroCard key={perro.id} perro={perro} />

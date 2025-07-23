@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-const Header = () => (
+const Navbar = () => (
   <header>
     <nav>
       <Link to="/">Home</Link>
@@ -10,4 +10,4 @@ const Header = () => (
   </header>
 )
 
-export default Header
+export default Navbar
