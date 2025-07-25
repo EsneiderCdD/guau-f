@@ -1,15 +1,12 @@
-import { useEffect, useState } from 'react'
+// src/pages/Home.jsx
 import Navbar from '../components/Navbar/Navbar'
 import Header from '../components/Header/Header'
 import PerroCard from '../components/PerroCard/PerroCard'
-import { obtenerPerros } from '../services/perrosService'
+import usePerros from '../hooks/usePerros'
 import styles from './Home.module.css'
-const Home = () => {
-  const [perros, setPerros] = useState([])
 
-  useEffect(() => {
-    obtenerPerros().then(data => setPerros(data))
-  }, [])
+const Home = () => {
+  const { data: perros, isLoading, error } = usePerros()
 
   return (
     <>
@@ -19,6 +16,8 @@ const Home = () => {
         <img src="/Gua-logo.png" alt="Gua Logo" className={styles.logo} />
       </header>
       <div className={styles.wrapper}>
+        {isLoading && <p>Cargando...</p>}
+        {error && <p>Error: {error}</p>}
         {perros.map(perro => (
           <PerroCard key={perro.id} perro={perro} />
         ))}

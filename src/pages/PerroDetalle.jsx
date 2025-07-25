@@ -1,17 +1,15 @@
+// src/pages/PerroDetalle.jsx
 import { useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import { obtenerPerroPorId } from '../services/perrosService'
+import usePerroPorId from '../hooks/usePerroPorId'
 import styles from './PerroDetalle.module.css'
 
 const PerroDetalle = () => {
   const { id } = useParams()
-  const [perro, setPerro] = useState(null)
+  const { data: perro, isLoading, error } = usePerroPorId(id)
 
-  useEffect(() => {
-    obtenerPerroPorId(id).then(data => setPerro(data))
-  }, [id])
-
-  if (!perro) return <p className={styles.loading}>Cargando...</p>
+  if (isLoading) return <p className={styles.loading}>Cargando...</p>
+  if (error) return <p className={styles.loading}>Error: {error}</p>
+  if (!perro) return null
 
   return (
     <section className={styles.container}>
@@ -30,4 +28,3 @@ const PerroDetalle = () => {
 }
 
 export default PerroDetalle
-
