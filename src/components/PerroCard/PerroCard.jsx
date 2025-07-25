@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import styles from './PerroCard.module.css'
 
+
 const PerroCard = ({ perro }) => (
   <div className={styles.card}>
     <img className={styles.image} src={perro.imagen} alt={perro.nombre} />

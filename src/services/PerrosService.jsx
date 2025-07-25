@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:3000/perros' // Simulando tu backend local
+const API_URL = 'http://localhost:3000/perros' 
 
 export const obtenerPerros = async () => {
   const res = await axios.get(API_URL)
