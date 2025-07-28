@@ -1,6 +1,6 @@
 // src/utils/fetchPerros.js
 
-const API_URL = 'http://localhost:3000/perros'
+const API_URL = 'http://127.0.0.1:5000/perros'
 
 // 🔹 Obtener todos los perros
 export const getPerros = async () => {
@@ -23,31 +23,3 @@ export const getPerroPorId = async (id) => {
     throw error
   }
 }
-
-/* 🔸 Futuras funciones
-
-// Crear un nuevo perro
-export const postPerro = async (nuevoPerro) => {
-  const res = await fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(nuevoPerro),
-  })
-  return await res.json()
-}
-
-// Actualizar un perro existente
-export const putPerro = async (id, datosActualizados) => {
-  const res = await fetch(`${API_URL}/${id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(datosActualizados),
-  })
-  return await res.json()
-}
-
-// Eliminar un perro
-export const deletePerro = async (id) => {
-  await fetch(`${API_URL}/${id}`, { method: 'DELETE' })
-}
-*/
