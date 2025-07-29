@@ -1,0 +1,11 @@
+/* src/pages/AdminPage.module.css */
+
+.container {
+  padding: 2rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  color: #333;
+}
