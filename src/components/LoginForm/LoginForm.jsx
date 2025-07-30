@@ -1,8 +1,10 @@
+// src/components/User/LoginForm.jsx
+
 import { useState } from 'react'
 import styles from './LoginForm.module.css'
 import { loginRequest } from '@utils/fetchAuth'
-import useAuthStore from '@store/authStore'         // ✅ ← NUEVO
-import { useNavigate } from 'react-router-dom'       // ✅ ← NUEVO
+import useAuthStore from '@store/authStore'
+import { useNavigate } from 'react-router-dom'
 
 const LoginForm = () => {
   const [nombre, setNombre] = useState('')
@@ -10,8 +12,8 @@ const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const login = useAuthStore((state) => state.login)   // ✅ ← NUEVO
-  const navigate = useNavigate()                       // ✅ ← NUEVO
+  const login = useAuthStore((state) => state.login)
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -20,8 +22,15 @@ const LoginForm = () => {
 
     try {
       const response = await loginRequest({ nombre, password })
-      login(response.user, response.access_token)      // ✅ ← Guardamos en Zustand
-      navigate('/admin')                               // ✅ ← Redirigimos
+      login(response.user, response.access_token)
+
+      // Redirigir según el rol
+      if (response.user.rol === 'admin') {
+        navigate('/admin')
+      } else {
+        navigate('/')
+      }
+
     } catch (err) {
       setError(err.message)
     } finally {

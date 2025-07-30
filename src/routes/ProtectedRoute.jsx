@@ -1,11 +1,15 @@
 // src/routes/ProtectedRoute.jsx
 import { Navigate } from 'react-router-dom'
-import useAuthStore from '@store/authStore'
+import useAuthStore from '@store/authStore' // ✅ Import necesario
 
 const ProtectedRoute = ({ children }) => {
-  const isAuth = useAuthStore((state) => state.isAuthenticated())
+  const { user, token } = useAuthStore()
 
-  return isAuth ? children : <Navigate to="/login" replace />
+  if (!token) return <Navigate to="/login" replace />
+
+  if (user?.rol !== 'admin') return <Navigate to="/" replace />
+
+  return children
 }
 
 export default ProtectedRoute
