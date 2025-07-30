@@ -1,29 +1,19 @@
-import { useEffect, useState } from 'react'
-import { getPerros } from '@utils/fetchPerros'
+import usePerrosAdmin from '@hooks/usePerrosAdmin' // ✅ Nuevo hook
 import useAuthStore from '@store/authStore'
 import AgregarPerroForm from './AgregarPerroForm'
 import PerroRow from './PerroRow'
 import styles from './AdminPanel.module.css'
 
 const AdminPanel = () => {
-  const [perros, setPerros] = useState([])
-  const [error, setError] = useState(null)
+  const {
+    perros,
+    setPerros,
+    cargarPerros,
+    isLoading,
+    error
+  } = usePerrosAdmin()
+
   const token = useAuthStore((state) => state.token)
-
-  // 🔄 Cargar todos los perros desde la API
-  const cargarPerros = async () => {
-    try {
-      const lista = await getPerros()
-      setPerros(lista)
-    } catch (err) {
-      setError('No se pudieron cargar los perros')
-    }
-  }
-
-  // ⏱️ Cargar al iniciar
-  useEffect(() => {
-    cargarPerros()
-  }, [])
 
   // 🗑️ Eliminar visualmente un perro después del DELETE
   const handlePerroEliminado = (id) => {
@@ -44,6 +34,7 @@ const AdminPanel = () => {
 
       {/* ❗ Mostrar errores si hay */}
       {error && <p className={styles.error}>{error}</p>}
+      {isLoading && <p>Cargando perros...</p>}
 
       {/* 📋 Tabla de perros */}
       <table className={styles.table}>
@@ -52,6 +43,7 @@ const AdminPanel = () => {
             <th>ID</th>
             <th>Nombre</th>
             <th>Edad</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
