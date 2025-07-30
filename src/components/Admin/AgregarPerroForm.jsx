@@ -1,7 +1,7 @@
 // src/components/Admin/AgregarPerroForm.jsx
 import { useState } from 'react'
 import useAuthStore from '@store/authStore'
-import { postPerro } from '@utils/fetchPerros' // ✅ NUEVO
+import useAgregarPerro from '@hooks/useAgregarPerro' // ✅ NUEVO HOOK
 import styles from './AdminPanel.module.css'
 
 const AgregarPerroForm = ({ onPerroAgregado }) => {
@@ -12,10 +12,9 @@ const AgregarPerroForm = ({ onPerroAgregado }) => {
     descripcion: '',
     imagen_url: ''
   })
-  const [error, setError] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
 
   const token = useAuthStore((state) => state.token)
+  const { agregarPerro, isLoading, error } = useAgregarPerro(token)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -24,17 +23,12 @@ const AgregarPerroForm = ({ onPerroAgregado }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setError(null)
-    setIsLoading(true)
-
     try {
-      await postPerro(form, token) // ✅ USAMOS LA FUNCIÓN DE UTILS
+      await agregarPerro(form)
       onPerroAgregado()
       setForm({ nombre: '', edad: '', raza: '', descripcion: '', imagen_url: '' })
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setIsLoading(false)
+    } catch (_) {
+      // El error ya se maneja internamente
     }
   }
 
@@ -57,3 +51,4 @@ const AgregarPerroForm = ({ onPerroAgregado }) => {
 }
 
 export default AgregarPerroForm
+

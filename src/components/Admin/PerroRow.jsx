@@ -1,13 +1,14 @@
 // src/components/Admin/PerroRow.jsx
-import { deletePerro } from '@utils/fetchPerros' // ✅ NUEVO
+import useEliminarPerro from '@hooks/useEliminarPerro'
 import styles from './AdminPanel.module.css'
 
-const PerroRow = ({ perro, token, onDelete }) => {
+const PerroRow = ({ perro, onDelete }) => {
+  const { eliminarPerro, error } = useEliminarPerro()
+
   const handleDelete = async () => {
     if (!confirm(`¿Seguro que deseas eliminar a ${perro.nombre}?`)) return
-
     try {
-      await deletePerro(perro.id, token) // ✅ USO DE FUNCIÓN REUTILIZABLE
+      await eliminarPerro(perro.id)
       onDelete(perro.id)
     } catch (err) {
       alert(err.message || 'Error al eliminar perro')
@@ -23,6 +24,7 @@ const PerroRow = ({ perro, token, onDelete }) => {
         <button className={styles.deleteButton} onClick={handleDelete}>
           Eliminar
         </button>
+        {error && <p className={styles.error}>{error}</p>}
       </td>
     </tr>
   )
