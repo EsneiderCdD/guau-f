@@ -1,6 +1,7 @@
 // src/components/Admin/AgregarPerroForm.jsx
 import { useState } from 'react'
 import useAuthStore from '@store/authStore'
+import { postPerro } from '@utils/fetchPerros' // ✅ NUEVO
 import styles from './AdminPanel.module.css'
 
 const AgregarPerroForm = ({ onPerroAgregado }) => {
@@ -27,20 +28,7 @@ const AgregarPerroForm = ({ onPerroAgregado }) => {
     setIsLoading(true)
 
     try {
-      const res = await fetch('http://127.0.0.1:5000/perros/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify(form)
-      })
-
-      if (!res.ok) {
-        const data = await res.json()
-        throw new Error(data.error || 'Error al agregar perro')
-      }
-
+      await postPerro(form, token) // ✅ USAMOS LA FUNCIÓN DE UTILS
       onPerroAgregado()
       setForm({ nombre: '', edad: '', raza: '', descripcion: '', imagen_url: '' })
     } catch (err) {
@@ -53,7 +41,6 @@ const AgregarPerroForm = ({ onPerroAgregado }) => {
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
       <h3>Agregar nuevo perro</h3>
-
       <input name="nombre" value={form.nombre} onChange={handleChange} placeholder="Nombre" />
       <input name="edad" value={form.edad} onChange={handleChange} placeholder="Edad" />
       <input name="raza" value={form.raza} onChange={handleChange} placeholder="Raza" />

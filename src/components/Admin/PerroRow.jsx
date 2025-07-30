@@ -1,27 +1,16 @@
 // src/components/Admin/PerroRow.jsx
-import useAuthStore from '@store/authStore'
+import { deletePerro } from '@utils/fetchPerros' // ✅ NUEVO
 import styles from './AdminPanel.module.css'
 
-const PerroRow = ({ perro, onDelete }) => {
-  const token = useAuthStore((state) => state.token)
-
+const PerroRow = ({ perro, token, onDelete }) => {
   const handleDelete = async () => {
+    if (!confirm(`¿Seguro que deseas eliminar a ${perro.nombre}?`)) return
+
     try {
-      const res = await fetch(`http://127.0.0.1:5000/perros/${perro.id}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-
-      if (!res.ok) {
-        const data = await res.json()
-        throw new Error(data.error || 'Error al eliminar')
-      }
-
+      await deletePerro(perro.id, token) // ✅ USO DE FUNCIÓN REUTILIZABLE
       onDelete(perro.id)
     } catch (err) {
-      alert(err.message)
+      alert(err.message || 'Error al eliminar perro')
     }
   }
 
@@ -30,9 +19,10 @@ const PerroRow = ({ perro, onDelete }) => {
       <td>{perro.id}</td>
       <td>{perro.nombre}</td>
       <td>{perro.edad}</td>
-      <td>{perro.raza}</td>
       <td>
-        <button onClick={handleDelete}>Eliminar</button>
+        <button className={styles.deleteButton} onClick={handleDelete}>
+          Eliminar
+        </button>
       </td>
     </tr>
   )

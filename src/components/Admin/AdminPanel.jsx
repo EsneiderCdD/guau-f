@@ -49,9 +49,9 @@ const AdminPanel = () => {
       <table className={styles.table}>
         <thead>
           <tr>
+            <th>ID</th>
             <th>Nombre</th>
             <th>Edad</th>
-            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
