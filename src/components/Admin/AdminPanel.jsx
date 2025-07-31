@@ -1,8 +1,10 @@
-import usePerrosAdmin from '@hooks/usePerrosAdmin' // ✅ Nuevo hook
+import usePerrosAdmin from '@hooks/usePerrosAdmin' 
 import useAuthStore from '@store/authStore'
 import AgregarPerroForm from './AgregarPerroForm'
 import PerroRow from './PerroRow'
+import SolicitudesPanel from './SolicitudesPanel'
 import styles from './AdminPanel.module.css'
+
 
 const AdminPanel = () => {
   const {
@@ -57,6 +59,8 @@ const AdminPanel = () => {
           ))}
         </tbody>
       </table>
+      {/* 📝 Panel de solicitudes de adopción */}
+      <SolicitudesPanel />
     </div>
   )
 }
