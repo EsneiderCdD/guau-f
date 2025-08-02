@@ -1,44 +1,62 @@
-import usePerrosAdmin from '@hooks/usePerrosAdmin' 
+import usePerrosAdmin from '@hooks/usePerrosAdmin'
+import useProductosAdmin from '@hooks/useProductosAdmin' // ⬅️ nuevo
 import useAuthStore from '@store/authStore'
+
 import AgregarPerroForm from './AgregarPerroForm'
+import AgregarProductoForm from './AgregarProductoForm' // ⬅️ nuevo
+
 import PerroRow from './PerroRow'
+import ProductoRow from './ProductoRow' // ⬅️ nuevo
+
 import SolicitudesPanel from './SolicitudesPanel'
 import styles from './AdminPanel.module.css'
-
 
 const AdminPanel = () => {
   const {
     perros,
     setPerros,
     cargarPerros,
-    isLoading,
-    error
+    isLoading: loadingPerros,
+    error: errorPerros
   } = usePerrosAdmin()
+
+  const {
+    productos,
+    setProductos,
+    cargarProductos,
+    isLoading: loadingProductos,
+    error: errorProductos
+  } = useProductosAdmin()
 
   const token = useAuthStore((state) => state.token)
 
-  // 🗑️ Eliminar visualmente un perro después del DELETE
   const handlePerroEliminado = (id) => {
     setPerros(perros.filter((p) => p.id !== id))
   }
 
-  // ➕ Recargar todos tras agregar para mantener orden y evitar problemas
   const handlePerroAgregado = () => {
     cargarPerros()
+  }
+
+  const handleProductoEliminado = (id) => {
+    setProductos(productos.filter((p) => p.id !== id))
+  }
+
+  const handleProductoAgregado = () => {
+    cargarProductos()
   }
 
   return (
     <div className={styles.container}>
       <h2>Panel de Administración</h2>
 
-      {/* ✅ Formulario para agregar */}
+      {/* 🐶 Agregar Perro */}
       <AgregarPerroForm token={token} onPerroAgregado={handlePerroAgregado} />
 
-      {/* ❗ Mostrar errores si hay */}
-      {error && <p className={styles.error}>{error}</p>}
-      {isLoading && <p>Cargando perros...</p>}
+      {errorPerros && <p className={styles.error}>{errorPerros}</p>}
+      {loadingPerros && <p>Cargando perros...</p>}
 
-      {/* 📋 Tabla de perros */}
+      <h3>Lista de Perros</h3>
       <table className={styles.table}>
         <thead>
           <tr>
@@ -59,7 +77,36 @@ const AdminPanel = () => {
           ))}
         </tbody>
       </table>
-      {/* 📝 Panel de solicitudes de adopción */}
+
+      {/* 🛒 Agregar Producto */}
+      <AgregarProductoForm onProductoAgregado={handleProductoAgregado} />
+
+      {errorProductos && <p className={styles.error}>{errorProductos}</p>}
+      {loadingProductos && <p>Cargando productos...</p>}
+
+      <h3>Lista de Productos</h3>
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {productos.map((producto) => (
+            <ProductoRow
+              key={producto.id}
+              producto={producto}
+              token={token}
+              onDelete={handleProductoEliminado}
+            />
+          ))}
+        </tbody>
+      </table>
+
       <SolicitudesPanel />
     </div>
   )
