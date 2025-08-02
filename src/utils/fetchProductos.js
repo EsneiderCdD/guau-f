@@ -36,3 +36,21 @@ export const deleteProducto = async (id, token) => {
     throw new Error(error.error || 'Error al eliminar producto')
   }
 }
+
+export const comprarProducto = async (producto_id, cantidad, token) => {
+  const res = await fetch('http://127.0.0.1:5000/productos/comprar', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify({ producto_id, cantidad })
+  })
+
+  if (!res.ok) {
+    const error = await res.json()
+    throw new Error(error.error || 'Error al realizar la compra')
+  }
+
+  return await res.json()
+}
