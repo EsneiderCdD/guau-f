@@ -1,7 +1,8 @@
-// src/components/Navbar.jsx
 import { Link } from 'react-router-dom'
 import useAuthStore from '@store/authStore'
 import styles from './Navbar.module.css'
+import LoginButton from '../ui/LoginButton'
+import LogoutButton from '../ui/LogoutButton'
 
 const Navbar = () => {
   const { user } = useAuthStore()
@@ -19,7 +20,6 @@ const Navbar = () => {
         <Link to="/tienda" className={styles.link}>Tienda</Link>
         <Link to="/test" className={styles.link}>Test</Link>
 
-        {/* Botón siempre visible, solo funciona si es usuario logueado */}
         <button
           onClick={handleClick}
           className={styles.link}
@@ -30,6 +30,8 @@ const Navbar = () => {
         >
           Solo para usuarios
         </button>
+
+        {user ? <LogoutButton /> : <LoginButton />}
       </nav>
     </header>
   )

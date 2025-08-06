@@ -1,12 +1,12 @@
 import usePerrosAdmin from '@hooks/usePerrosAdmin'
-import useProductosAdmin from '@hooks/useProductosAdmin' // ⬅️ nuevo
+import useProductosAdmin from '@hooks/useProductosAdmin'
 import useAuthStore from '@store/authStore'
 
 import AgregarPerroForm from './AgregarPerroForm'
-import AgregarProductoForm from './AgregarProductoForm' // ⬅️ nuevo
+import AgregarProductoForm from './AgregarProductoForm'
 
 import PerroRow from './PerroRow'
-import ProductoRow from './ProductoRow' // ⬅️ nuevo
+import ProductoRow from './ProductoRow' 
 
 import SolicitudesPanel from './SolicitudesPanel'
 import styles from './AdminPanel.module.css'

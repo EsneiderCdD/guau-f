@@ -1,7 +1,7 @@
 // src/components/Admin/AgregarPerroForm.jsx
 import { useState } from 'react'
 import useAuthStore from '@store/authStore'
-import useAgregarPerro from '@hooks/useAgregarPerro' // ✅ NUEVO HOOK
+import useAgregarPerro from '@hooks/useAgregarPerro' 
 import styles from './AdminPanel.module.css'
 
 const AgregarPerroForm = ({ onPerroAgregado }) => {
