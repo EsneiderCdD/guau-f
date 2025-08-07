@@ -5,6 +5,7 @@ import PerroDetalle from '@pages/PerroDetalle'
 import Tienda from '@pages/Tienda'
 import Test from '@pages/Test'
 import LoginPage from '@pages/LoginPage'
+import RegisterPage from '@pages/RegisterPage'
 
 const PublicRoutes = () => {
   return (
@@ -14,6 +15,7 @@ const PublicRoutes = () => {
       <Route path="/tienda" element={<Tienda />} />
       <Route path="/test" element={<Test />} />
       <Route path="/login" element={<LoginPage />} />
+       <Route path="/registro" element={<RegisterPage />} /> 
     </Routes>
   )
 }

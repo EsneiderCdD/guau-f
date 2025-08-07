@@ -1,3 +1,5 @@
+// src/components/Navbar.jsx
+
 import { Link } from 'react-router-dom'
 import useAuthStore from '@store/authStore'
 import styles from './Navbar.module.css'
@@ -31,7 +33,16 @@ const Navbar = () => {
           Solo para usuarios
         </button>
 
-        {user ? <LogoutButton /> : <LoginButton />}
+        {/* Si NO hay usuario, mostrar Login y Registro */}
+        {!user && (
+          <>
+            <LoginButton />
+            <Link to="/registro" className={styles.link}>Registrarse</Link>
+          </>
+        )}
+
+        {/* Si hay usuario, mostrar botón de logout */}
+        {user && <LogoutButton />}
       </nav>
     </header>
   )
