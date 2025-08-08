@@ -1,0 +1,49 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.title {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.pregunta {
+  display: flex;
+  flex-direction: column;
+}
+
+.texto {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.opcion {
+  margin-left: 16px;
+  margin-bottom: 4px;
+}
+
+.boton {
+  padding: 10px;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  text-align: center;
+}
+
+.success {
+  color: green;
+  text-align: center;
+}

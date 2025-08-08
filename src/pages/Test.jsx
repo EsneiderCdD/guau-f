@@ -1,3 +1,3 @@
-
-const Test = () => <h1>Test de Personalidad - Próximamente</h1>
+import EncuestaForm from '@components/test/EncuestaForm'
+const Test = () => <EncuestaForm />
 export default Test
