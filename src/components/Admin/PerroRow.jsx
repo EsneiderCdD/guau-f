@@ -20,6 +20,9 @@ const PerroRow = ({ perro, onDelete }) => {
       <td>{perro.id}</td>
       <td>{perro.nombre}</td>
       <td>{perro.edad}</td>
+      <td>{perro.tiempo_requerido}</td>
+      <td>{perro.requiere_experiencia}</td>
+      <td>{perro.apego_esperado}</td>
       <td>
         <button className={styles.deleteButton} onClick={handleDelete}>
           Eliminar
@@ -27,6 +30,7 @@ const PerroRow = ({ perro, onDelete }) => {
         {error && <p className={styles.error}>{error}</p>}
       </td>
     </tr>
+
   )
 }
 

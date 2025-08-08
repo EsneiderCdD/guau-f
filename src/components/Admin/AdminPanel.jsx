@@ -63,6 +63,9 @@ const AdminPanel = () => {
             <th>ID</th>
             <th>Nombre</th>
             <th>Edad</th>
+            <th>Tiempo</th>
+            <th>Experiencia</th>
+            <th>Apego</th>
             <th>Acciones</th>
           </tr>
         </thead>
