@@ -9,6 +9,7 @@ const EncuestaForm = () => {
   const [mensaje, setMensaje] = useState(null)
   const { token } = useAuthStore()
 
+  // Función para manejar cambios de respuesta
   const handleChange = (id, valor) => {
     setRespuestas((prev) => ({
       ...prev,
@@ -16,19 +17,30 @@ const EncuestaForm = () => {
     }))
   }
 
+  // Calcular score del tiempo
+  const calcularScoreTiempo = () => {
+    const tiempoKeys = ['tiempo_1', 'tiempo_2', 'tiempo_3', 'tiempo_4', 'tiempo_5']
+    const valores = tiempoKeys.map((key) => Number(respuestas[key]))
+    const suma = valores.reduce((acc, val) => acc + val, 0)
+    const promedio = suma / tiempoKeys.length
+    return Math.round(promedio)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError(null)
     setMensaje(null)
 
-    // Validación básica: asegurar que todas las preguntas estén respondidas
-    const keys = ['tiempo_disponible', 'experiencia', 'apego_emocional']
-    const incompletas = keys.some((key) => respuestas[key] === undefined)
-
-    if (incompletas) {
+    // Validación
+    const tiempoKeys = ['tiempo_1', 'tiempo_2', 'tiempo_3', 'tiempo_4', 'tiempo_5']
+    const incompletasTiempo = tiempoKeys.some((key) => respuestas[key] === undefined)
+    if (incompletasTiempo || respuestas.experiencia === undefined || respuestas.apego_emocional === undefined) {
       setError('Por favor responde todas las preguntas.')
       return
     }
+
+    // Calcular score de tiempo
+    const tiempo_disponible = calcularScoreTiempo()
 
     try {
       const res = await fetch('http://127.0.0.1:5000/match/responder', {
@@ -38,7 +50,7 @@ const EncuestaForm = () => {
           Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({
-          tiempo_disponible: respuestas.tiempo_disponible,
+          tiempo_disponible,
           experiencia: respuestas.experiencia,
           apego_emocional: respuestas.apego_emocional
         })
