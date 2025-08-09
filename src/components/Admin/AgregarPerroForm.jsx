@@ -42,6 +42,8 @@ const AgregarPerroForm = ({ onPerroAgregado }) => {
         raza: '',
         descripcion: '',
         imagen_url: '',
+        imagen_card_uno: '',
+        imagen_card_dos: '',
         tiempo_requerido: '',
         requiere_experiencia: '',
         apego_esperado: ''
@@ -60,6 +62,18 @@ const AgregarPerroForm = ({ onPerroAgregado }) => {
       <input name="raza" value={form.raza} onChange={handleChange} placeholder="Raza" />
       <input name="descripcion" value={form.descripcion} onChange={handleChange} placeholder="Descripción" />
       <input name="imagen_url" value={form.imagen_url} onChange={handleChange} placeholder="URL Imagen" />
+      <input
+        name="imagen_card_uno"
+        value={form.imagen_card_uno}
+        onChange={handleChange}
+        placeholder="URL Imagen Card Uno"
+      />
+      <input
+        name="imagen_card_dos"
+        value={form.imagen_card_dos}
+        onChange={handleChange}
+        placeholder="URL Imagen Card Dos"
+      />
 
       <fieldset className={styles.fieldset}>
         <legend>Dimensiones</legend>

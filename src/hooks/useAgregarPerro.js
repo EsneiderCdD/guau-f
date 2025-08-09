@@ -14,7 +14,7 @@ const useAgregarPerro = (token) => {
       await postPerro(form, token)
     } catch (err) {
       setError(err.message)
-      throw err // Permite manejarlo externamente si se quiere
+      throw err 
     } finally {
       setIsLoading(false)
     }
