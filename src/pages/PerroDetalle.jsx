@@ -27,10 +27,18 @@ const PerroDetalle = () => {
   return (
     <section className={styles.container}>
       <div className={styles.imageWrapper}>
-        <img src={perro.imagen} alt={perro.nombre} className={styles.image} />
+        <img src={perro.imagen_card_dos} alt={perro.nombre} className={styles.image} />
       </div>
       <div className={styles.info}>
-        <h2 className={styles.name}>{perro.nombre}</h2>
+        <div className={styles.nombreDecorado}>
+          <img
+            src="/decorators/subrayado.webp"
+            alt="decoración subrayado"
+            className={styles.subrayadoImg}
+          />
+          <span className={styles.nombreTexto}>{perro.nombre}</span>
+        </div>
+
         <p className={styles.detail}><strong>Edad:</strong> {perro.edad}</p>
         <p className={styles.detail}><strong>Raza:</strong> {perro.raza}</p>
         <p className={styles.description}>{perro.descripcion}</p>
