@@ -9,21 +9,26 @@ const EncuestaForm = () => {
   const [mensaje, setMensaje] = useState(null)
   const { token } = useAuthStore()
 
-  // Función para manejar cambios de respuesta
   const handleChange = (id, valor) => {
     setRespuestas((prev) => ({
       ...prev,
-      [id]: valor
+      [id]: Number(valor)
     }))
   }
 
-  // Calcular score del tiempo
-  const calcularScoreTiempo = () => {
-    const tiempoKeys = ['tiempo_1', 'tiempo_2', 'tiempo_3', 'tiempo_4', 'tiempo_5']
-    const valores = tiempoKeys.map((key) => Number(respuestas[key]))
+  // Calcular score promedio para dimensiones Likert
+  const calcularScore = (keys) => {
+    const valores = keys.map((key) => Number(respuestas[key]))
     const suma = valores.reduce((acc, val) => acc + val, 0)
-    const promedio = suma / tiempoKeys.length
+    const promedio = suma / keys.length
     return Math.round(promedio)
+  }
+
+  // Calcular resultado binario para experiencia
+  const calcularBinario = (keys) => {
+    const valores = keys.map((key) => Number(respuestas[key]))
+    const suma = valores.reduce((acc, val) => acc + val, 0)
+    return suma >= Math.ceil(keys.length / 2) ? 1 : 0
   }
 
   const handleSubmit = async (e) => {
@@ -31,16 +36,23 @@ const EncuestaForm = () => {
     setError(null)
     setMensaje(null)
 
-    // Validación
     const tiempoKeys = ['tiempo_1', 'tiempo_2', 'tiempo_3', 'tiempo_4', 'tiempo_5']
-    const incompletasTiempo = tiempoKeys.some((key) => respuestas[key] === undefined)
-    if (incompletasTiempo || respuestas.experiencia === undefined || respuestas.apego_emocional === undefined) {
+    const experienciaKeys = ['experiencia_1', 'experiencia_2', 'experiencia_3', 'experiencia_4', 'experiencia_5']
+    const apegoKeys = ['apego_1', 'apego_2', 'apego_3', 'apego_4', 'apego_5']
+
+    // Validar que todas las preguntas tengan respuesta
+    const incompletas = [...tiempoKeys, ...experienciaKeys, ...apegoKeys]
+      .some((key) => respuestas[key] === undefined)
+
+    if (incompletas) {
       setError('Por favor responde todas las preguntas.')
       return
     }
 
-    // Calcular score de tiempo
-    const tiempo_disponible = calcularScoreTiempo()
+    // Calcular puntajes
+    const tiempo_disponible = calcularScore(tiempoKeys)       // 1–3
+    const experiencia = calcularBinario(experienciaKeys)      // 0–1
+    const apego_emocional = calcularScore(apegoKeys)          // 1–3
 
     try {
       const res = await fetch('http://127.0.0.1:5000/match/responder', {
@@ -51,8 +63,8 @@ const EncuestaForm = () => {
         },
         body: JSON.stringify({
           tiempo_disponible,
-          experiencia: respuestas.experiencia,
-          apego_emocional: respuestas.apego_emocional
+          experiencia,
+          apego_emocional
         })
       })
 
@@ -81,7 +93,7 @@ const EncuestaForm = () => {
                 type="radio"
                 name={pregunta.id}
                 value={opcion.valor}
-                checked={respuestas[pregunta.id] == opcion.valor}
+                checked={respuestas[pregunta.id] === opcion.valor}
                 onChange={() => handleChange(pregunta.id, opcion.valor)}
               />
               {opcion.label}
