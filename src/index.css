@@ -51,7 +51,8 @@
 body {
   font-family: var(--font-family-base);
   font-size: var(--font-size-base);
-  background-color: var(--color-bg);
+  background-color: #FDF3D1;
+  /* background-color: var(--color-bg); */
   color: var(--color-text);
   line-height: 1.6;
   min-height: 100vh;

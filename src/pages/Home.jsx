@@ -1,6 +1,6 @@
 // src/pages/Home.jsx
 import Navbar from '../components/Navbar/Navbar'
-import Header from '../components/Header/Header'
+
 import PerroCard from '../components/PerroCard/PerroCard'
 import usePerros from '../hooks/usePerros'
 import styles from './Home.module.css'
