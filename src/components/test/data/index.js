@@ -6,6 +6,7 @@ import greetings from './greetings'
 import closings from './closings'
 
 const preguntas = [
+    
   ...tiempo,
   ...experiencia,
   ...apego

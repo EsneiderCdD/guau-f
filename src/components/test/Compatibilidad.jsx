@@ -1,15 +1,16 @@
 // src/components/test/Compatibilidad.jsx
-
 import { useEffect, useState } from 'react'
 import styles from './Compatibilidad.module.css'
 import useAuthStore from '@store/authStore'
 
-const Compatibilidad = () => {
+const Compatibilidad = ({ enabled = true }) => {
   const { user, token } = useAuthStore()
   const [resultados, setResultados] = useState([])
   const [error, setError] = useState(null)
 
   useEffect(() => {
+    if (!enabled) return
+
     const obtenerCompatibilidad = async () => {
       try {
         const res = await fetch(`http://127.0.0.1:5000/match/${user?.id}`, {
@@ -33,7 +34,16 @@ const Compatibilidad = () => {
     if (user?.id && token) {
       obtenerCompatibilidad()
     }
-  }, [user, token])
+  }, [user, token, enabled])
+
+  if (!enabled) {
+    return (
+      <div className={styles.contenedor}>
+        <h3 className={styles.titulo}>Resultados de Compatibilidad</h3>
+        <p className={styles.vacio}>Completa la encuesta para ver tus resultados.</p>
+      </div>
+    )
+  }
 
   return (
     <div className={styles.contenedor}>
