@@ -95,41 +95,46 @@ const EncuestaForm = ({ onComplete }) => {
   }
 
   return (
-    <div className={styles.formContainer}>
-      {estado.saludo && (
-        <div className={styles.bubble}>
-          <p>{greeting}</p>
-          <button onClick={start} className={styles.boton}>Comenzar</button>
-        </div>
-      )}
-
-      {estado.preguntaActual && (
-        <div className={styles.questionBlock}>
-          <Pregunta
-            pregunta={estado.preguntaActual}
-            onChange={handleOptionSelect}
-            valorSeleccionado={answers[estado.preguntaActual.id]}
-          />
-          <div className={styles.controls}>
-            <button onClick={goBack} className={styles.botonSecundario}>Atrás</button>
-            <p className={styles.indicador}>Pregunta {estado.index + 1} de {estado.total}</p>
+    <div className={styles.formWrapper}>
+      <div className={styles.formContainer}>
+        {estado.saludo && (
+          <div className={styles.bubble}>
+            <p>{greeting}</p>
+            <button onClick={start} className={styles.boton}>Comenzar</button>
           </div>
-        </div>
-      )}
+        )}
 
-      {estado.cierre && (
-        <div className={styles.bubble}>
-          <p>{closing}</p>
-          <button onClick={handleSubmit} className={styles.boton} disabled={submitting}>
-            {submitting ? 'Enviando...' : 'Enviar y ver resultados'}
-          </button>
-          {error && <p className={styles.error}>{error}</p>}
-          {mensaje && <p className={styles.success}>{mensaje}</p>}
-        </div>
-      )}
+        {estado.preguntaActual && (
+          <div className={styles.questionBlock}>
+            <Pregunta
+              pregunta={estado.preguntaActual}
+              onChange={handleOptionSelect}
+              valorSeleccionado={answers[estado.preguntaActual.id]}
+            />
+            <div className={styles.controls}>
+              <button onClick={goBack} className={styles.botonSecundario}>Atrás</button>
+              <p className={styles.indicador}>Pregunta {estado.index + 1} de {estado.total}</p>
+            </div>
+          </div>
+        )}
 
-      {/* opcional: mostrar mensaje cuando ya terminó (estado.finished) */}
-      {estado.finished && <p className={styles.success}>Finalizado. Puedes ver los resultados.</p>}
+        {estado.cierre && (
+          <div className={styles.bubble}>
+            <p>{closing}</p>
+            <button onClick={handleSubmit} className={styles.boton} disabled={submitting}>
+              {submitting ? 'Enviando...' : 'Enviar y ver resultados'}
+            </button>
+            {error && <p className={styles.error}>{error}</p>}
+            {mensaje && <p className={styles.success}>{mensaje}</p>}
+          </div>
+        )}
+
+        {estado.finished && (
+          <div className={styles.finishedMessage}>
+            <p className={styles.success}>Finalizado. Puedes ver los resultados.</p>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

@@ -52,13 +52,15 @@ const Compatibilidad = ({ enabled = true }) => {
       {error && <p className={styles.error}>{error}</p>}
 
       {resultados.length > 0 ? (
-        <ul className={styles.lista}>
-          {resultados.map((perro) => (
-            <li key={perro.perro_id} className={styles.item}>
-              🐶 {perro.nombre}: <strong>{perro.compatibilidad}%</strong>
-            </li>
-          ))}
-        </ul>
+        <div className={styles.resultadosWrapper}>
+          <ul className={styles.lista}>
+            {resultados.map((perro) => (
+              <li key={perro.perro_id} className={styles.item}>
+                🐶 {perro.nombre}: <strong>{perro.compatibilidad}%</strong>
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : (
         !error && <p className={styles.vacio}>No hay resultados para mostrar.</p>
       )}
