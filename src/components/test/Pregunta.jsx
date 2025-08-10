@@ -1,7 +1,9 @@
-
+// src/components/test/Pregunta.jsx
 import styles from './Pregunta.module.css'
 
-const Pregunta = ({ texto, opciones, onChange, valorSeleccionado }) => {
+const Pregunta = ({ pregunta, onChange, valorSeleccionado }) => {
+  const { texto, opciones, id } = pregunta
+
   return (
     <div className={styles.pregunta}>
       <p className={styles.texto}>{texto}</p>
@@ -10,10 +12,10 @@ const Pregunta = ({ texto, opciones, onChange, valorSeleccionado }) => {
           <label key={opcion.valor} className={styles.opcion}>
             <input
               type="radio"
-              name={texto}
+              name={id}
               value={opcion.valor}
               checked={valorSeleccionado === opcion.valor}
-              onChange={() => onChange(opcion.valor)}
+              onChange={() => onChange(id, opcion.valor)}
             />
             {opcion.label}
           </label>

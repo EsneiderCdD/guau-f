@@ -1,7 +1,9 @@
+// src/components/test/EncuestaForm.jsx
 import { useState } from 'react'
 import preguntas from './preguntas'
 import styles from './EncuestaForm.module.css'
 import useAuthStore from '@store/authStore'
+import Pregunta from './Pregunta'
 
 const EncuestaForm = () => {
   const [respuestas, setRespuestas] = useState({})
@@ -16,7 +18,13 @@ const EncuestaForm = () => {
     }))
   }
 
-  // Calcular score promedio para dimensiones Likert
+  // util: agrupa los ids por dimensión
+  const gruposPorDimension = preguntas.reduce((acc, p) => {
+    acc[p.dimension] = acc[p.dimension] || []
+    acc[p.dimension].push(p.id)
+    return acc
+  }, {})
+
   const calcularScore = (keys) => {
     const valores = keys.map((key) => Number(respuestas[key]))
     const suma = valores.reduce((acc, val) => acc + val, 0)
@@ -24,7 +32,6 @@ const EncuestaForm = () => {
     return Math.round(promedio)
   }
 
-  // Calcular resultado binario para experiencia
   const calcularBinario = (keys) => {
     const valores = keys.map((key) => Number(respuestas[key]))
     const suma = valores.reduce((acc, val) => acc + val, 0)
@@ -36,23 +43,19 @@ const EncuestaForm = () => {
     setError(null)
     setMensaje(null)
 
-    const tiempoKeys = ['tiempo_1', 'tiempo_2', 'tiempo_3', 'tiempo_4', 'tiempo_5']
-    const experienciaKeys = ['experiencia_1', 'experiencia_2', 'experiencia_3', 'experiencia_4', 'experiencia_5']
-    const apegoKeys = ['apego_1', 'apego_2', 'apego_3', 'apego_4', 'apego_5']
-
     // Validar que todas las preguntas tengan respuesta
-    const incompletas = [...tiempoKeys, ...experienciaKeys, ...apegoKeys]
-      .some((key) => respuestas[key] === undefined)
+    const todosLosIds = preguntas.map((p) => p.id)
+    const incompletas = todosLosIds.some((id) => respuestas[id] === undefined)
 
     if (incompletas) {
       setError('Por favor responde todas las preguntas.')
       return
     }
 
-    // Calcular puntajes
-    const tiempo_disponible = calcularScore(tiempoKeys)       // 1–3
-    const experiencia = calcularBinario(experienciaKeys)      // 0–1
-    const apego_emocional = calcularScore(apegoKeys)          // 1–3
+    // Calcular scores por dimensión (nombres de campo que espera el backend)
+    const tiempo_disponible = calcularScore(gruposPorDimension['tiempo'] || [])
+    const experiencia = calcularBinario(gruposPorDimension['experiencia'] || [])
+    const apego_emocional = calcularScore(gruposPorDimension['apego'] || [])
 
     try {
       const res = await fetch('http://127.0.0.1:5000/match/responder', {
@@ -85,21 +88,12 @@ const EncuestaForm = () => {
       <h2 className={styles.title}>Test de Compatibilidad</h2>
 
       {preguntas.map((pregunta) => (
-        <div key={pregunta.id} className={styles.pregunta}>
-          <p className={styles.texto}>{pregunta.texto}</p>
-          {pregunta.opciones.map((opcion) => (
-            <label key={opcion.valor} className={styles.opcion}>
-              <input
-                type="radio"
-                name={pregunta.id}
-                value={opcion.valor}
-                checked={respuestas[pregunta.id] === opcion.valor}
-                onChange={() => handleChange(pregunta.id, opcion.valor)}
-              />
-              {opcion.label}
-            </label>
-          ))}
-        </div>
+        <Pregunta
+          key={pregunta.id}
+          pregunta={pregunta}
+          onChange={handleChange}
+          valorSeleccionado={respuestas[pregunta.id]}
+        />
       ))}
 
       <button type="submit" className={styles.boton}>Enviar</button>
