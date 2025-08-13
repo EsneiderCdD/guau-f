@@ -2,7 +2,7 @@
 import useEliminarPerro from '@hooks/useEliminarPerro'
 import styles from './AdminPanel.module.css'
 
-const PerroRow = ({ perro, onDelete }) => {
+const PerroRow = ({ perro, onDelete, onEdit }) => {
   const { eliminarPerro, error } = useEliminarPerro()
 
   const handleDelete = async () => {
@@ -27,6 +27,13 @@ const PerroRow = ({ perro, onDelete }) => {
         <button className={styles.deleteButton} onClick={handleDelete}>
           Eliminar
         </button>
+        <button
+          className={styles.editButton}
+          onClick={() => onEdit(perro)}
+        >
+          Editar
+        </button>
+
         {error && <p className={styles.error}>{error}</p>}
       </td>
     </tr>

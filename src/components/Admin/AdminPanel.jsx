@@ -6,11 +6,14 @@ import AgregarPerroForm from './AgregarPerroForm'
 import AgregarProductoForm from './AgregarProductoForm'
 
 import PerroRow from './PerroRow'
-import ProductoRow from './ProductoRow' 
+import ProductoRow from './ProductoRow'
 
 import SolicitudesPanel from './SolicitudesPanel'
 import styles from './AdminPanel.module.css'
 
+import EditarPerroForm from './EditarPerroForm'
+
+import { useState } from 'react'
 const AdminPanel = () => {
   const {
     perros,
@@ -29,6 +32,8 @@ const AdminPanel = () => {
   } = useProductosAdmin()
 
   const token = useAuthStore((state) => state.token)
+  const [perroSeleccionado, setPerroSeleccionado] = useState(null)
+
 
   const handlePerroEliminado = (id) => {
     setPerros(perros.filter((p) => p.id !== id))
@@ -76,6 +81,7 @@ const AdminPanel = () => {
               perro={perro}
               token={token}
               onDelete={handlePerroEliminado}
+              onEdit={setPerroSeleccionado}
             />
           ))}
         </tbody>
@@ -109,8 +115,14 @@ const AdminPanel = () => {
           ))}
         </tbody>
       </table>
-
       <SolicitudesPanel />
+      {perroSeleccionado && (
+        <EditarPerroForm
+          perro={perroSeleccionado}
+          token={token}
+          onEditado={cargarPerros}
+        />
+      )}
     </div>
   )
 }
