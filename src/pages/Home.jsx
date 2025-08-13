@@ -1,5 +1,5 @@
 // src/pages/Home.jsx
-import Navbar from '../components/Navbar/Navbar'
+// import Navbar from '../components/Navbar/Navbar'
 
 import PerroCard from '../components/PerroCard/PerroCard'
 import usePerros from '../hooks/usePerros'
@@ -10,7 +10,7 @@ const Home = () => {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <header className={styles.header}>
         <img src="/Header.png" alt="Header background" className={styles.background} />
         <img src="/Gua-logo.png" alt="Gua Logo" className={styles.logo} />

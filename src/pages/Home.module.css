@@ -12,15 +12,13 @@
   object-fit: cover;
 }
 
-/* Este es tu logo "tipográfico", flotando sobre el fondo */
 .logo {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: 100px;
+  top: 30%;
+  left: 30%;
+  height: 666px;
   object-fit: contain;
-  z-index: 3; /* Para que esté por encima incluso de las cards si suben */
+  z-index: 3;
 }
 
 .wrapper {
