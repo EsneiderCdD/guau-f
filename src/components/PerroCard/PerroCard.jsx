@@ -28,7 +28,7 @@ const PerroCard = ({ perro }) => {
         alt={`${perro.nombre} imagen dos`}
       />
 
-      <h3 className={styles.title}>{perro.nombre}</h3>
+    
       <Link className={styles.link} to={`/perros/${perro.id}`}>Ver más</Link>
     </div>
   )
