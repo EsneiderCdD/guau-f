@@ -6,6 +6,16 @@
   overflow: hidden;
 }
 
+.header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 220px; /* Altura del desvanecido */
+  background: linear-gradient(to bottom, #fdf3d100 0%, #FDF3D1 100%);
+  pointer-events: none; /* Para que no interfiera con clicks */
+}
 .background {
   width: 100%;
   height: 100%;
@@ -14,9 +24,10 @@
 
 .logo {
   position: absolute;
-  top: 30%;
-  left: 30%;
+  top: 70%;
+  left: 50%;
   height: 666px;
+  transform: translate(-50%, -50%); /* Ajusta el centro exacto */
   object-fit: contain;
   z-index: 3;
 }
@@ -27,8 +38,34 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem;
+  gap: 5rem;
   padding: 2rem;
-  max-width: 1200px;
+  max-width: 1350px;
   margin: 0 auto;
+}
+
+
+/* CSS: Home.module.css */
+
+.cartel {
+  position: absolute;
+  height: 100px; /* Ajusta según quieras */
+  object-fit: contain;
+  z-index: 3;    /* Para que quede sobre el fondo */
+}
+
+/* Posiciones individuales, ajusta top/left según necesites */
+.cartel1 {
+  top: 5%; 
+  left: -2%;
+}
+
+.cartel2 {
+  top: 20%; 
+  left: -2%;
+}
+
+.cartel3 {
+  top: 35%; 
+  left: -2%;
 }

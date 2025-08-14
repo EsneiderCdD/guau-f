@@ -14,6 +14,11 @@ const Home = () => {
       <header className={styles.header}>
         <img src="/Header.png" alt="Header background" className={styles.background} />
         <img src="/Gua-logo.png" alt="Gua Logo" className={styles.logo} />
+
+         {/* Tres carteles */}
+          <img src="/Cartel.webp" alt="Cartel 1" className={`${styles.cartel} ${styles.cartel1}`} />
+          <img src="/Cartel.webp" alt="Cartel 2" className={`${styles.cartel} ${styles.cartel2}`} />
+          <img src="/Cartel.webp" alt="Cartel 3" className={`${styles.cartel} ${styles.cartel3}`} />
       </header>
       <div className={styles.wrapper}>
         {isLoading && <p>Cargando...</p>}
