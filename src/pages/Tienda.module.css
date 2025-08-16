@@ -2,8 +2,18 @@
 .header {
   position: relative;
   width: 100%;
-  height: 900px;
   overflow: hidden;
+
+}
+.header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 220px; /* Altura del desvanecido */
+  background: linear-gradient(to bottom, #fdf3d100 0%, #FDF3D1 100%);
+  pointer-events: none; /* Para que no interfiera con clicks */
 }
 
 .background {
@@ -12,25 +22,24 @@
   object-fit: cover;
 }
 
-/* Este es tu logo "tipográfico", flotando sobre el fondo */
 .logo {
   position: absolute;
-  top: 50%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 100px;
+  height: 500px;
   object-fit: contain;
-  z-index: 3; /* Para que esté por encima incluso de las cards si suben */
+  z-index: 3; 
 }
 
 .wrapper {
-  position: relative;
-  top: -200px; 
+  position: absolute;
+  top: 900px; 
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
   padding: 2rem;
-  max-width: 1200px;
+  width: 1200px;
   margin: 0 auto;
 }
