@@ -1,23 +1,35 @@
 .navbar {
-  background-color: var(--color-primario);
-  padding: 1rem 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3; /* sobre el fondo */
   display: flex;
-  gap: 2rem;
-  justify-content: center;
+  flex-direction: column;
+  gap: 15%; /* separación vertical */
 }
 
-.link {
-  color: rgb(0, 0, 0);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: color 0.2s ease-in-out;
+.cartel {
+  height: 100px; /* Ajusta según quieras */
+  object-fit: contain;
 }
 
-.link:hover {
-  color: var(--color-acento);
+/* Posiciones individuales */
+.cartelInicio {
+  margin-top: 5%;
+}
+
+.cartelTienda {
+  margin-top: 5%;
+}
+
+.cartelTest {
+  margin-top: 5%;
+}
+
+.cartelLogin {
+  margin-top: 5%;
+}
+
+.cartelRegistro {
+  margin-top: 5%;
 }
