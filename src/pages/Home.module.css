@@ -54,18 +54,30 @@
   z-index: 3;    /* Para que quede sobre el fondo */
 }
 
-/* Posiciones individuales, ajusta top/left según necesites */
-.cartel1 {
+/* Posiciones individuales */
+.cartelInicio {
   top: 5%; 
   left: -2%;
 }
 
-.cartel2 {
+.cartelTienda {
   top: 20%; 
   left: -2%;
 }
 
-.cartel3 {
+.cartelTest {
   top: 35%; 
   left: -2%;
 }
+
+.cartelLogin {
+  top: 50%; 
+  left: -2%;
+}
+
+.cartelRegistro {
+  top: 65%; 
+  left: -2%;
+}
+
+

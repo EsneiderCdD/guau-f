@@ -1,6 +1,6 @@
 // src/pages/Home.jsx
 // import Navbar from '../components/Navbar/Navbar'
-
+import { Link } from 'react-router-dom'
 import PerroCard from '../components/PerroCard/PerroCard'
 import usePerros from '../hooks/usePerros'
 import styles from './Home.module.css'
@@ -10,15 +10,27 @@ const Home = () => {
 
   return (
     <>
-      {/* <Navbar /> */}
+
       <header className={styles.header}>
         <img src="/Header.png" alt="Header background" className={styles.background} />
         <img src="/Gua-logo.png" alt="Gua Logo" className={styles.logo} />
 
-         {/* Tres carteles */}
-          <img src="/Cartel.webp" alt="Cartel 1" className={`${styles.cartel} ${styles.cartel1}`} />
-          <img src="/Cartel.webp" alt="Cartel 2" className={`${styles.cartel} ${styles.cartel2}`} />
-          <img src="/Cartel.webp" alt="Cartel 3" className={`${styles.cartel} ${styles.cartel3}`} />
+        {/* cinco carteles */}
+        <Link to="/" >
+          <img src="/Cartel.webp" alt="Cartel Inicio" className={`${styles.cartel} ${styles.cartelInicio}`} />
+        </Link>
+        <Link to="/tienda" >
+          <img src="/Cartel.webp" alt="Cartel Tienda" className={`${styles.cartel} ${styles.cartelTienda}`} />
+        </Link>
+        <Link to="/test" >
+          <img src="/Cartel.webp" alt="Cartel Test" className={`${styles.cartel} ${styles.cartelTest}`} />
+        </Link>
+        <Link to="/login" >
+          <img src="/Cartel.webp" alt="Cartel Login" className={`${styles.cartel} ${styles.cartelLogin}`} />
+        </Link>
+        <Link to="/registro" >
+          <img src="/Cartel.webp" alt="Cartel Registro" className={`${styles.cartel} ${styles.cartelRegistro}`} />
+        </Link>
       </header>
       <div className={styles.wrapper}>
         {isLoading && <p>Cargando...</p>}
