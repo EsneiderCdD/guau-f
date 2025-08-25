@@ -31,14 +31,10 @@ const PerroDetalle = () => {
       <Navbar />
       <section className={styles.container}>
         <h2 className={styles.nombre}>{perro.nombre}</h2>
-        <div className={styles.imageWrapper}>
-          <img src={perro.imagen_card_dos} alt={perro.nombre} className={styles.image} />
-      
-        </div>
+
         <div className={styles.texto}>
-          <p className={styles.detail}><strong>Edad:</strong> {perro.edad}</p>
-          <p className={styles.detail}><strong>Raza:</strong> {perro.raza}</p>
-          <p className={styles.description}>{perro.descripcion}</p>
+
+         
           {!solicitudEnviada && (
             <button className={styles.button} onClick={handleAdoptarClick}>
               Adóptame

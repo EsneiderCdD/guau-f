@@ -1,39 +1,16 @@
 .container {
   background: url('/backgrounds/fondo-cards.webp');
   display: flex;
-  align-items: flex-start; /* no forzamos vertical center */
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding: 2rem;
-  gap: 2rem;
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.imageWrapper {
-  position: relative;
-  max-width: 400px;
-  height: 100%;
-  overflow: hidden;
-  border-radius: 1rem;
-  top: 30px;
-  right: 35px;
-
-}
-
-.image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center bottom;
+  min-height: 100vh;
 }
 
 .nombre {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255,255,255,0.7);
+  margin-bottom: 2rem;
+  background: rgba(255, 255, 255, 0.7);
   padding: 0.5rem 1rem;
   border-radius: 8px;
   font-size: 1.5rem;
@@ -42,30 +19,13 @@
 }
 
 .texto {
-  position: absolute;
-   top: 250px;
-   left: 50%;
-   
-    
-
-
- 
-}
-
-.detail {
-  font-size: 1.1rem;
-  color: #555;
-  margin-bottom: 0.5rem;
-}
-
-.description {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #444;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
 .button {
-  margin-top: 2rem;
   padding: 0.75rem 1.5rem;
   background-color: #ff4c4c;
   color: white;
@@ -73,7 +33,6 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  width: fit-content;
   transition: background-color 0.3s ease;
 }
 
@@ -87,3 +46,9 @@
   font-size: 1.2rem;
   color: #999;
 }
+/* 
+.confirmacion {
+  font-size: 1.2rem;
+  color: #2e7d32;
+  font-weight: bold;
+} */
