@@ -63,6 +63,32 @@
   font-size: 1.2rem;
   color: #999;
 }
+.collage {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  height: 350px; /* controlas el área donde se solapan */
+  margin: 2rem auto;
+}
+
+.photo {
+  position: absolute;
+  background: #f3f3f3;
+  padding: 6px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  width: 180px;
+  overflow: hidden;
+}
+
+.photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
 
 
 /* 
