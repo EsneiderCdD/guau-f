@@ -11,6 +11,7 @@
     "api": "json-server --watch db.json --port 3000"
   },
   "dependencies": {
+    "framer-motion": "^12.23.12",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.7.0",
