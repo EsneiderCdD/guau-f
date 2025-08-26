@@ -7,15 +7,7 @@ import { useState } from 'react'
 import Navbar from '@/components/Navbar/Navbar'
 import { motion } from 'framer-motion'
 import Stats from '../components/stats/Stats'
-
-const demoFotos = [
-  { src: 'https://placedog.net/400/300?id=1', style: { top: 0, left: 40, rotate: -5 } },
-  { src: 'https://placedog.net/400/300?id=2', style: { top: 30, left: 220, rotate: 3 } },
-  { src: 'https://placedog.net/400/300?id=3', style: { top: 150, left: 100, rotate: -2 } },
-  { src: 'https://placedog.net/400/300?id=4', style: { top: 60, left: 400, rotate: 4 } },
-  { src: 'https://placedog.net/400/300?id=5', style: { top: 180, left: 300, rotate: -4 } },
-  { src: 'https://placedog.net/400/300?id=6', style: { top: 100, left: 500, rotate: 2 } },
-]
+import { getCollageLayout } from '../utils/collageLayouts'  // 👈 importamos layouts
 
 const PerroDetalle = () => {
   const { id } = useParams()
@@ -27,6 +19,13 @@ const PerroDetalle = () => {
   if (isLoading) return <p className={styles.loading}>Cargando...</p>
   if (error) return <p className={styles.loading}>Error: {error}</p>
   if (!perro) return null
+
+  const layout = getCollageLayout()
+
+  const fotos = Array.from({ length: 6 }).map((_, i) => ({
+    src: `https://placedog.net/400/300?id=${id}-${i}`, // así cambian por perro
+    style: layout[i],
+  }))
 
   const handleAdoptarClick = () => {
     if (!isAuth) {
@@ -47,11 +46,9 @@ const PerroDetalle = () => {
             Le encanta jugar con la pelota y recibir caricias.
           </p>
 
-
-
           {/* collage */}
           <div className={styles.collage}>
-            {demoFotos.map((foto, i) => (
+            {fotos.map((foto, i) => (
               <motion.div
                 key={i}
                 className={styles.photo}
@@ -62,9 +59,9 @@ const PerroDetalle = () => {
               >
                 <img src={foto.src} alt={`perro-${i}`} />
               </motion.div>
-
             ))}
           </div>
+
           <Stats />
 
           <div style={{ display: 'flex', justifyContent: 'center' }}>
