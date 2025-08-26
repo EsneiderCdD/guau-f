@@ -6,6 +6,7 @@ import useAuthStore from '../store/authStore'
 import { useState } from 'react'
 import Navbar from '@/components/Navbar/Navbar'
 import { motion } from 'framer-motion'
+import Stats from '../components/stats/Stats'
 
 const demoFotos = [
   { src: 'https://placedog.net/400/300?id=1', style: { top: 0, left: 40, rotate: -5 } },
@@ -42,9 +43,11 @@ const PerroDetalle = () => {
         <div className={styles.textos}>
           <h2>{perro.nombre}</h2>
           <p>
-            {perro.nombre} es un perro de raza muy amigable, sonriente y juguetón. 
+            {perro.nombre} es un perro de raza muy amigable, sonriente y juguetón.
             Le encanta jugar con la pelota y recibir caricias.
           </p>
+
+
 
           {/* collage */}
           <div className={styles.collage}>
@@ -59,27 +62,31 @@ const PerroDetalle = () => {
               >
                 <img src={foto.src} alt={`perro-${i}`} />
               </motion.div>
+
             ))}
           </div>
+          <Stats />
 
-          {!solicitudEnviada && (
-            <button className={styles.button} onClick={handleAdoptarClick}>
-              Adóptame
-            </button>
-          )}
-          {mostrarFormulario && !solicitudEnviada && (
-            <AdopcionForm
-              perroId={id}
-              onSuccess={() => {
-                setSolicitudEnviada(true)
-                setMostrarFormulario(false)
-                alert('🎉 Solicitud enviada con éxito.')
-              }}
-            />
-          )}
-          {solicitudEnviada && (
-            <p className={styles.confirmacion}>Gracias por tu interés ❤️</p>
-          )}
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            {!solicitudEnviada && (
+              <button className={styles.button} onClick={handleAdoptarClick}>
+                Adóptame
+              </button>
+            )}
+            {mostrarFormulario && !solicitudEnviada && (
+              <AdopcionForm
+                perroId={id}
+                onSuccess={() => {
+                  setSolicitudEnviada(true)
+                  setMostrarFormulario(false)
+                  alert('🎉 Solicitud enviada con éxito.')
+                }}
+              />
+            )}
+            {solicitudEnviada && (
+              <p className={styles.confirmacion}>Gracias por tu interés ❤️</p>
+            )}
+          </div>
         </div>
       </section>
     </div>

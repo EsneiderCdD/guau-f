@@ -43,6 +43,7 @@
 
 
 .button {
+  
   padding: 0.75rem 1.5rem;
   background-color: #ff4c4c;
   color: white;
@@ -51,10 +52,6 @@
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-}
-
-.button:hover {
-  background-color: #e63b3b;
 }
 
 .loading {
