@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar/Navbar'
 import PerroCard from '../components/PerroCard/PerroCard'
 import usePerros from '../hooks/usePerros'
 import styles from './Home.module.css'
+import { s } from 'framer-motion/client'
 
 const Home = () => {
   const { data: perros, isLoading, error } = usePerros()
@@ -14,10 +15,10 @@ const Home = () => {
       <header className={styles.header}>
         <img src="/Header.png" alt="Header background" className={styles.background} />
         <img src="/Gua-logo.png" alt="Gua Logo" className={styles.logo} />
-
-        {/* Navbar de carteles */}
-        <Navbar />
       </header>
+        <div className={styles.layout}>
+          <Navbar />
+        </div>
       <div className={styles.wrapper}>
         {isLoading && <p>Cargando...</p>}
         {error && <p>Error: {error}</p>}

@@ -44,17 +44,21 @@
   margin: 0 auto;
 }
 
-
-/* CSS: Home.module.css */
+.layout {
+  position: fixed;   /* lo sacamos del flujo normal */
+  top: 25px;            /* pegado arriba */
+  left: -30px;           /* pegado a la izquierda */
+  height: 100vh;     /* ocupa todo el alto de la pantalla */
+  z-index: 20;       /* encima del contenido */
+}
 
 .cartel {
   position: absolute;
-  height: 100px; /* Ajusta según quieras */
+  height: 100px; 
   object-fit: contain;
-  z-index: 3;    /* Para que quede sobre el fondo */
+  z-index: 3;    
 }
 
-/* Posiciones individuales */
 .cartelInicio {
   top: 5%; 
   left: -2%;
