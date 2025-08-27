@@ -1,19 +1,15 @@
-// src/components/User/LoginForm.jsx
-
 import { useState } from 'react'
 import styles from './LoginForm.module.css'
 import { loginRequest } from '@utils/fetchAuth'
 import useAuthStore from '@store/authStore'
-import { useNavigate } from 'react-router-dom'
 
-const LoginForm = () => {
+const LoginForm = ({ onSuccess }) => {
   const [nombre, setNombre] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
   const login = useAuthStore((state) => state.login)
-  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -24,12 +20,8 @@ const LoginForm = () => {
       const response = await loginRequest({ nombre, password })
       login(response.user, response.access_token)
 
-      // Redirigir según el rol
-      if (response.user.rol === 'admin') {
-        navigate('/admin')
-      } else {
-        navigate('/')
-      }
+      // cerrar modal después de login exitoso
+      if (onSuccess) onSuccess()
 
     } catch (err) {
       setError(err.message)
