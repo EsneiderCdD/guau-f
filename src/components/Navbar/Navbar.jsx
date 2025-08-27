@@ -1,34 +1,45 @@
 // src/components/Navbar/Navbar.jsx
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import styles from './Navbar.module.css'
+
+const menuItems = [
+  { to: "/", label: "Inicio" },
+  { to: "/tienda", label: "Tienda" },
+  { to: "/test", label: "Test" },
+  { to: "/login", label: "Login" },
+  { to: "/registro", label: "Registro" }
+]
 
 const Navbar = () => {
   return (
     <nav className={styles.navbar}>
-      <Link to="/">
-        <img src="/Cartel.webp" alt="Cartel Inicio" className={styles.cartel}/>
-        <span className={styles.texto}>Inicio</span>
-      </Link>
-
-      <Link to="/tienda">
-        <img src="/Cartel.webp" alt="Cartel Tienda" className={styles.cartel}/>
-        <span className={styles.texto}>Tienda</span>
-      </Link>
-
-      <Link to="/test">
-        <img src="/Cartel.webp" alt="Cartel Test" className={styles.cartel}/>
-        <span className={styles.texto}>Test</span>
-      </Link>
-
-      <Link to="/login">
-        <img src="/Cartel.webp" alt="Cartel Login" className={styles.cartel}  />
-        <span className={styles.texto}>Login</span>
-      </Link>
-
-      <Link to="/registro">
-        <img src="/Cartel.webp" alt="Cartel Registro" className={styles.cartel}/>
-        <span className={styles.texto}>Registro</span>
-      </Link>
+      {menuItems.map(item => (
+        <Link key={item.to} to={item.to} className={styles.link}>
+          <motion.div
+            className={styles.cartelWrapper}
+            initial={{ x: 0 }}
+            animate={{ x: -65 }}
+            whileHover={{ x: 0 }}
+            transition={{ duration: 1, ease: 'easeInOut' }}
+          >
+            <img
+              src="/Cartel.webp"
+              alt={`Cartel ${item.label}`}
+              className={styles.cartel}
+            />
+            <motion.span
+              className={styles.texto}
+              initial={{ color: "#000" }}
+              animate={{ color: "#000" }}
+              whileHover={{ color: "#d2a679" }}
+              transition={{ duration: 1 }}
+            >
+              {item.label}
+            </motion.span>
+          </motion.div>
+        </Link>
+      ))}
     </nav>
   )
 }

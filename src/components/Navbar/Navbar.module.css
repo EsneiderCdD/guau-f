@@ -2,23 +2,27 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 3; 
+  z-index: 3;
   display: flex;
   flex-direction: column;
-
 }
 
-.cartel {
-  height: 75px; 
-  object-fit: contain;
+.link {
+  position: relative;
+  display: inline-block;
   margin-top: 5%;
 }
 
-
-
-.navbar a {
+.cartelWrapper {
   position: relative;
   display: inline-block;
+  overflow: hidden; /* para que el movimiento hacia la izquierda se esconda */
+}
+
+.cartel {
+  height: 75px;
+  object-fit: contain;
+  display: block;
 }
 
 .texto {
@@ -27,10 +31,9 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: 'Chewy';
-  font-size: 2rem;           
-  letter-spacing: 1px;
+  font-size: 2rem;
+  letter-spacing: 5px;
   color: #000000;
   text-shadow: 2px 2px 4px rgba(48, 43, 36, 0.6);
   white-space: nowrap;
-  pointer-events: none;           
 }
