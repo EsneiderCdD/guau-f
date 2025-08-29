@@ -1,4 +1,3 @@
-// src/components/ui/modal/ModalLogin.jsx
 import { motion, AnimatePresence } from "framer-motion"
 import styles from "./Modals.module.css"
 import LoginForm from "@/components/loginForm/LoginForm"
@@ -27,6 +26,13 @@ const ModalLogin = ({ isOpen, onClose }) => {
             {/* Aquí va tu formulario de login */}
             <LoginForm onSuccess={onClose} />
           </motion.div>
+
+          {/* Imagen del perro fija en el fondo */}
+          <img
+            src="/imagen-modal.webp"
+            alt="Perro decorativo"
+            className={styles.perro}
+          />
         </motion.div>
       )}
     </AnimatePresence>
