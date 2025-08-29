@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import styles from './Navbar.module.css'
 import ModalLogin from '@/components/ui/modal/ModalLogin'
+import ModalRegister from '@/components/ui/modal/ModalRegister'
 
 const menuItems = [
   { to: "/", label: "Inicio" },
   { to: "/tienda", label: "Tienda" },
   { to: "/test", label: "Test" },
-  { to: "login", label: "Login", isModal: true }, // 👈 indicamos que es modal
-  { to: "/registro", label: "Registro" }
+  { to: "login", label: "Login", isModal: true }, 
+  { to: "registro", label: "Registro", isModal: true }
 ]
 
 const Navbar = () => {
