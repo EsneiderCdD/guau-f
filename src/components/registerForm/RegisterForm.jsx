@@ -3,7 +3,7 @@ import { useState } from 'react'
 import styles from './RegisterForm.module.css'
 import useAuthStore from '@store/authStore'
 
-const RegisterForm = ({ onSuccess }) => {   // ⬅️ ahora recibes la prop
+const RegisterForm = ({ onSuccess }) => {   // ⬅ recibir la prop
   const [nombre, setNombre] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -29,7 +29,7 @@ const RegisterForm = ({ onSuccess }) => {   // ⬅️ ahora recibes la prop
         throw new Error(data.error || 'Error al registrar')
       }
 
-      // ✅ cerrar modal al terminar registro
+
       if (onSuccess) onSuccess()
 
     } catch (err) {
