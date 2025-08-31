@@ -9,23 +9,28 @@ const menuItems = [
   { to: "/", label: "Inicio" },
   { to: "/tienda", label: "Tienda" },
   { to: "/test", label: "Test" },
-  { to: "login", label: "Login", isModal: true }, 
-  { to: "registro", label: "Registro", isModal: true }
+  { to: "login", label: "Login", isModal: "login" }, 
+  { to: "registro", label: "Registro", isModal: "register" }
 ]
 
 const Navbar = () => {
   const [openLogin, setOpenLogin] = useState(false)
+  const [openRegister, setOpenRegister] = useState(false)
+
+  const handleOpenModal = (modalType) => {
+    if (modalType === "login") setOpenLogin(true)
+    if (modalType === "register") setOpenRegister(true)
+  }
 
   return (
     <>
       <nav className={styles.navbar}>
         {menuItems.map(item => {
-          // Si el item es modal (login)
           if (item.isModal) {
             return (
               <button
                 key={item.label}
-                onClick={() => setOpenLogin(true)}
+                onClick={() => handleOpenModal(item.isModal)}
                 className={styles.link}
               >
                 <motion.div
@@ -54,7 +59,6 @@ const Navbar = () => {
             )
           }
 
-          // Los demás siguen siendo <Link>
           return (
             <Link key={item.to} to={item.to} className={styles.link}>
               <motion.div
@@ -84,8 +88,9 @@ const Navbar = () => {
         })}
       </nav>
 
-      {/* Modal login */}
+      {/* Modales */}
       <ModalLogin isOpen={openLogin} onClose={() => setOpenLogin(false)} />
+      <ModalRegister isOpen={openRegister} onClose={() => setOpenRegister(false)} />
     </>
   )
 }
