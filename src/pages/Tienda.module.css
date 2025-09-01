@@ -33,13 +33,21 @@
 }
 
 .wrapper {
-  position: absolute;
-  top: 900px; 
+  position: relative;
+  top: -200px; 
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem;
+  gap: 5rem;
   padding: 2rem;
-  width: 1200px;
+  max-width: 1350px;
   margin: 0 auto;
+}
+
+.layout {
+  position: fixed;   
+  top: 125px;            
+  left: -11px;         
+  height: 100vh;     
+  z-index: 20;      
 }
