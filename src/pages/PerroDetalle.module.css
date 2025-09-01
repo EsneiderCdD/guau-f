@@ -64,7 +64,7 @@
   position: relative;
   width: 100%;
   max-width: 700px;
-  height: 350px; /* controlas el área donde se solapan */
+  height: 350px; 
   margin: 2rem auto;
 }
 
@@ -85,12 +85,3 @@
   border-radius: 4px;
   object-fit: cover;
 }
-
-
-
-/* 
-.confirmacion {
-  font-size: 1.2rem;
-  color: #2e7d32;
-  font-weight: bold;
-} */

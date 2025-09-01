@@ -45,11 +45,11 @@
 }
 
 .layout {
-  position: fixed;   /* lo sacamos del flujo normal */
-  top: 125px;            /* pegado arriba */
-  left: -11px;           /* pegado a la izquierda */
-  height: 100vh;     /* ocupa todo el alto de la pantalla */
-  z-index: 20;       /* encima del contenido */
+  position: fixed;   
+  top: 125px;
+  left: -11px;       
+  height: 100vh;     
+  z-index: 20;  
 }
 
 .cartel {
