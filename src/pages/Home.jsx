@@ -3,6 +3,7 @@ import Navbar from '@/components/Navbar/Navbar'
 import PerroCard from '../components/PerroCard/PerroCard'
 import usePerros from '../hooks/usePerros'
 import styles from './Home.module.css'
+import AdminPanel from '../components/Admin/AdminPanel'
 const Home = () => {
   const { data: perros, isLoading, error } = usePerros()
 
@@ -22,6 +23,7 @@ const Home = () => {
           <PerroCard key={perro.id} perro={perro} />
         ))}
       </div>
+      <AdminPanel />
     </>
   )
 }

@@ -49,7 +49,7 @@ const AgregarPerroForm = ({ onPerroAgregado }) => {
         apego_esperado: ''
       })
     } catch (_) {
-      // Error ya gestionado en el hook
+
     }
   }
 
@@ -57,25 +57,29 @@ const AgregarPerroForm = ({ onPerroAgregado }) => {
     <form onSubmit={handleSubmit} className={styles.form}>
       <h3>Agregar nuevo perro</h3>
 
-      <input name="nombre" value={form.nombre} onChange={handleChange} placeholder="Nombre" />
-      <input name="edad" value={form.edad} onChange={handleChange} placeholder="Edad" />
-      <input name="raza" value={form.raza} onChange={handleChange} placeholder="Raza" />
+      <div>
+        <input name="nombre" value={form.nombre} onChange={handleChange} placeholder="Nombre" />
+        <input name="edad" value={form.edad} onChange={handleChange} placeholder="Edad" />
+        <input name="raza" value={form.raza} onChange={handleChange} placeholder="Raza" />
+      </div>
       <input name="descripcion" value={form.descripcion} onChange={handleChange} placeholder="Descripción" />
-      <input name="imagen_url" value={form.imagen_url} onChange={handleChange} placeholder="URL Imagen" />
-      <input
-        name="imagen_card_uno"
-        value={form.imagen_card_uno}
-        onChange={handleChange}
-        placeholder="URL Imagen Card Uno"
-      />
-      <input
-        name="imagen_card_dos"
-        value={form.imagen_card_dos}
-        onChange={handleChange}
-        placeholder="URL Imagen Card Dos"
-      />
+      
+      <div>
+        <input
+          name="imagen_card_uno"
+          value={form.imagen_card_uno}
+          onChange={handleChange}
+          placeholder="URL Imagen Card Uno"
+        />
+        <input
+          name="imagen_card_dos"
+          value={form.imagen_card_dos}
+          onChange={handleChange}
+          placeholder="URL Imagen Card Dos"
+        />
+      </div>
 
-      <fieldset className={styles.fieldset}>
+      {/* <fieldset className={styles.fieldset}>
         <legend>Dimensiones</legend>
 
         <input
@@ -105,7 +109,14 @@ const AgregarPerroForm = ({ onPerroAgregado }) => {
           min="0"
           max="2"
         />
-      </fieldset>
+      </fieldset> */}
+      <div className={styles.card}>
+
+      </div>
+      <div className={styles.card}>
+
+      </div>
+
 
       <button type="submit" disabled={isLoading}>
         {isLoading ? 'Agregando...' : 'Agregar'}
