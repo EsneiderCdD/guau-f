@@ -63,7 +63,7 @@ const AgregarPerroForm = ({ onPerroAgregado }) => {
         <input name="raza" value={form.raza} onChange={handleChange} placeholder="Raza" />
       </div>
       <input name="descripcion" value={form.descripcion} onChange={handleChange} placeholder="Descripción" />
-      
+
       <div>
         <input
           name="imagen_card_uno"
@@ -111,10 +111,23 @@ const AgregarPerroForm = ({ onPerroAgregado }) => {
         />
       </fieldset> */}
       <div className={styles.card}>
-
+        {form.imagen_card_uno && (
+          <img
+            src={form.imagen_card_uno}
+            alt="Vista previa imagen uno"
+            style={{ maxWidth: '100%', maxHeight: '200px' }}
+          />
+        )}
       </div>
-      <div className={styles.card}>
 
+      <div className={styles.card}>
+        {form.imagen_card_dos && (
+          <img
+            src={form.imagen_card_dos}
+            alt="Vista previa imagen dos"
+            style={{ maxWidth: '100%', maxHeight: '200px' }}
+          />
+        )}
       </div>
 
 
