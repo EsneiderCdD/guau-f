@@ -16,7 +16,7 @@
 .cartelWrapper {
   position: relative;
   display: inline-block;
-  overflow: hidden; /* para que el movimiento hacia la izquierda se esconda */
+  overflow: hidden; 
 }
 
 .cartel {

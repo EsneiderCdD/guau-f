@@ -12,7 +12,9 @@ const AgregarPerroForm = ({ onPerroAgregado }) => {
     imagen_url: '',
     tiempo_requerido: '',
     requiere_experiencia: '',
-    apego_esperado: ''
+    apego_esperado: '',
+    imagen_card_uno: '',
+    imagen_card_dos: ''
   })
 
   const token = useAuthStore((state) => state.token)
@@ -57,26 +59,84 @@ const AgregarPerroForm = ({ onPerroAgregado }) => {
     <form onSubmit={handleSubmit} className={styles.form}>
       <h3>Agregar nuevo perro</h3>
 
-      <div>
+      <div className={styles.inputs}>
         <input name="nombre" value={form.nombre} onChange={handleChange} placeholder="Nombre" />
         <input name="edad" value={form.edad} onChange={handleChange} placeholder="Edad" />
         <input name="raza" value={form.raza} onChange={handleChange} placeholder="Raza" />
       </div>
-      <input name="descripcion" value={form.descripcion} onChange={handleChange} placeholder="Descripción" />
+      <textarea className={styles.textarea} name="descripcion" value={form.descripcion} onChange={handleChange} placeholder="Descripción" rows="3" />
 
+      <div className={styles.containerCards}>
+        <div className={styles.cardContainer} >
+          <div className={styles.card}>
+            {form.imagen_card_uno && (
+              <img
+                src={form.imagen_card_uno}
+                alt="Vista previa imagen uno"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  objectFit: 'contain'
+                }}
+              />
+            )}
+
+
+
+          </div>
+
+
+          <input
+            name="imagen_card_uno"
+            value={form.imagen_card_uno}
+            onChange={handleChange}
+            placeholder="URL Imagen Card Uno"
+          />
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+        <div className={styles.cardContainer}>
+          <div className={styles.card}>
+            {form.imagen_card_dos && (
+              <img
+                src={form.imagen_card_dos}
+                alt="Vista previa imagen dos"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  objectFit: 'contain'
+                }}
+              />
+            )}
+          </div>
+          <input
+            name="imagen_card_dos"
+            value={form.imagen_card_dos}
+            onChange={handleChange}
+            placeholder="URL Imagen Card Dos"
+          />
+        </div>
+      </div>
       <div>
-        <input
-          name="imagen_card_uno"
-          value={form.imagen_card_uno}
-          onChange={handleChange}
-          placeholder="URL Imagen Card Uno"
-        />
-        <input
-          name="imagen_card_dos"
-          value={form.imagen_card_dos}
-          onChange={handleChange}
-          placeholder="URL Imagen Card Dos"
-        />
+
+
       </div>
 
       {/* <fieldset className={styles.fieldset}>
@@ -110,25 +170,10 @@ const AgregarPerroForm = ({ onPerroAgregado }) => {
           max="2"
         />
       </fieldset> */}
-      <div className={styles.card}>
-        {form.imagen_card_uno && (
-          <img
-            src={form.imagen_card_uno}
-            alt="Vista previa imagen uno"
-            style={{ maxWidth: '100%', maxHeight: '200px' }}
-          />
-        )}
-      </div>
 
-      <div className={styles.card}>
-        {form.imagen_card_dos && (
-          <img
-            src={form.imagen_card_dos}
-            alt="Vista previa imagen dos"
-            style={{ maxWidth: '100%', maxHeight: '200px' }}
-          />
-        )}
-      </div>
+
+
+
 
 
       <button type="submit" disabled={isLoading}>

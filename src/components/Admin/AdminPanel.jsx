@@ -54,8 +54,7 @@ const AdminPanel = () => {
   return (
     <div className={styles.container}>
       <h2>Panel de Administración</h2>
-
-      {/* 🐶 Agregar Perro */}
+      
       <AgregarPerroForm token={token} onPerroAgregado={handlePerroAgregado} />
 
       {errorPerros && <p className={styles.error}>{errorPerros}</p>}
