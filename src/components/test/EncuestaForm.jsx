@@ -5,7 +5,7 @@ import Pregunta from './Pregunta'
 import styles from './EncuestaForm.module.css'
 import useAuthStore from '@store/authStore'
 import preguntas from './preguntas' // para cálculo final
-
+import AdminPanel from '../Admin/AdminPanel'
 const EncuestaForm = ({ onComplete }) => {
   const { token } = useAuthStore()
   const {
@@ -134,8 +134,12 @@ const EncuestaForm = ({ onComplete }) => {
             <p className={styles.success}>Finalizado. Puedes ver los resultados.</p>
           </div>
         )}
+        
       </div>
+     
+      
     </div>
+    
   )
 }
 

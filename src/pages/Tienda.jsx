@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar/Navbar'
 import ProductoCard from '../components/ProductoCard/ProductoCard'
 import useProductos from '../hooks/useProductos'
 import styles from './Tienda.module.css'
+import AdminPanel from '../components/Admin/AdminPanel'
 
 const Tienda = () => {
   const { data: productos, isLoading, error } = useProductos()
@@ -24,6 +25,7 @@ const Tienda = () => {
           <ProductoCard key={producto.id} producto={producto} />
         ))}
       </div>
+      <AdminPanel />
     </>
   )
 }
