@@ -4,6 +4,7 @@ import EncuestaForm from '@components/test/EncuestaForm'
 import Compatibilidad from '@components/test/Compatibilidad'
 import Navbar from '@components/navbar/Navbar'
 import styles from './Test.module.css'
+import PerroEncuesta from '../components/test/PerroEncuesta'
 
 const Test = () => {
   const [showResults, setShowResults] = useState(false)
@@ -16,6 +17,7 @@ const Test = () => {
         </div>
         <EncuestaForm onComplete={() => setShowResults(true)} />
         <Compatibilidad enabled={showResults} />
+        <PerroEncuesta />
       </div>
     </>
   )

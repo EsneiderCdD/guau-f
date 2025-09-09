@@ -1,0 +1,142 @@
+/* src/components/test/PerroEncuesta.module.css */
+.contenedor {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fff;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.titulo {
+  font-size: 1.25rem;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.intro {
+  text-align: center;
+  color: #444;
+  margin-bottom: 12px;
+}
+
+.encuesta {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.dimension {
+  background: #fafafa;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #f0f0f0;
+}
+
+.dimTitulo {
+  margin: 0 0 8px 0;
+  font-size: 1.05rem;
+}
+
+.listaPreguntas {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.pregunta {
+  margin-bottom: 10px;
+}
+
+.pTexto {
+  margin-bottom: 6px;
+}
+
+.opciones {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.opcion {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.95rem;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.boton {
+  padding: 10px 14px;
+  background: #2f4f4f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.botonSecundario {
+  padding: 10px 14px;
+  background: transparent;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.resultados {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f5fffa;
+  border: 1px solid #e6f5ed;
+}
+
+.note {
+  margin-top: 8px;
+  font-size: 0.92rem;
+  color: #333;
+}
+
+.error {
+  color: #d9534f;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.rasgosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.rasgoCard {
+  border: 1px dashed #e6e6e6;
+  padding: 8px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.rasgoLabel {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.rasgoValue {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.rasgoNote {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.75rem;
+  color: #888;
+}
