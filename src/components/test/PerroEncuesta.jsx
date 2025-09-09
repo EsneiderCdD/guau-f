@@ -19,7 +19,7 @@ const opciones = [
   { value: 4, label: '4' }
 ]
 
-const PerroEncuesta = () => {
+const PerroEncuesta = ({onFinish}) => {
   // respuestas guardadas por id -> valor 0..4
   const [answers, setAnswers] = useState({})
   const [error, setError] = useState(null)
@@ -49,30 +49,28 @@ const PerroEncuesta = () => {
     return allIds.every((id) => answers[id] !== undefined)
   }
 
-  const handleSubmit = () => {
-    setError(null)
-    if (!allAnswered()) {
-      setError('Por favor responde todas las preguntas antes de calcular el perfil.')
-      return
-    }
-
-    const pEnergia = Number(calcularPromedio(energia).toFixed(2))
-    const pApego = Number(calcularPromedio(apego).toFixed(2))
-    const pRegulacion = Number(calcularPromedio(regulacion).toFixed(2))
-    const pExploracion = Number(calcularPromedio(exploracion).toFixed(2))
-
-    const vector = [pEnergia, pApego, pRegulacion, pExploracion]
-
-    // índice global = promedio simple de las 4 dimensiones
-    const indiceGlobal =
-      Math.round(((pEnergia + pApego + pRegulacion + pExploracion) / 4) * 100) /
-      100
-
-    setResult({
-      vector,
-      indiceGlobal
-    })
+const handleSubmit = () => {
+  setError(null)
+  if (!allAnswered()) {
+    setError('Por favor responde todas las preguntas antes de calcular el perfil.')
+    return
   }
+
+  const pEnergia = Number(calcularPromedio(energia).toFixed(2))
+  const pApego = Number(calcularPromedio(apego).toFixed(2))
+  const pRegulacion = Number(calcularPromedio(regulacion).toFixed(2))
+  const pExploracion = Number(calcularPromedio(exploracion).toFixed(2))
+
+  const vector = [pEnergia, pApego, pRegulacion, pExploracion]
+  const indiceGlobal = Math.round(((pEnergia + pApego + pRegulacion + pExploracion) / 4) * 100) / 100
+
+  const res = { vector, indiceGlobal }
+  setResult(res)
+
+  // 👇 notifica al padre
+  if (onFinish) onFinish(res)
+}
+
 
   const handleReset = () => {
     setAnswers({})

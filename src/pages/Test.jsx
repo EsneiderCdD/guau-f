@@ -1,4 +1,3 @@
-
 import { useState } from 'react'
 import EncuestaForm from '@components/test/EncuestaForm'
 import Compatibilidad from '@components/test/Compatibilidad'
@@ -7,20 +6,22 @@ import styles from './Test.module.css'
 import PerroEncuesta from '../components/test/PerroEncuesta'
 
 const Test = () => {
-  const [showResults, setShowResults] = useState(false)
+  const [perfilUsuario, setPerfilUsuario] = useState(null)
+  const [perfilPerro, setPerfilPerro] = useState(null)
 
   return (
-    <>
-      <div className={styles.container}>
-        <div className={styles.layout}>
-          <Navbar />
-        </div>
-        <EncuestaForm onComplete={() => setShowResults(true)} />
-        <Compatibilidad enabled={showResults} />
-        <PerroEncuesta />
+    <div className={styles.container}>
+      <div className={styles.layout}>
+        <Navbar />
       </div>
-    </>
+
+      <EncuestaForm onComplete={(res) => setPerfilUsuario(res.vector)} />
+      <PerroEncuesta onFinish={(res) => setPerfilPerro(res.vector)} />
+
+      <Compatibilidad perfilUsuario={perfilUsuario} perfilPerro={perfilPerro} />
+    </div>
   )
 }
 
 export default Test
+

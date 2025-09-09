@@ -1,68 +1,60 @@
 // src/components/test/Compatibilidad.jsx
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import styles from './Compatibilidad.module.css'
-import useAuthStore from '@store/authStore'
 
-const Compatibilidad = ({ enabled = true }) => {
-  const { user, token } = useAuthStore()
-  const [resultados, setResultados] = useState([])
-  const [error, setError] = useState(null)
+const D_MAX = Math.sqrt(4 * Math.pow(4, 2)) // 8
 
-  useEffect(() => {
-    if (!enabled) return
+// Calcula compatibilidad entre dos vectores
+const calcularCompatibilidad = (usuario, perro) => {
+  if (!usuario || !perro) return null
+  if (usuario.length !== perro.length) return null
 
-    const obtenerCompatibilidad = async () => {
-      try {
-        const res = await fetch(`http://127.0.0.1:5000/match/${user?.id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        })
+  const distancia = Math.sqrt(
+    usuario.reduce((acc, val, i) => acc + Math.pow(val - perro[i], 2), 0)
+  )
 
-        const data = await res.json()
+  const compatibilidad = Math.max(
+    0,
+    Math.min(100, Math.round((1 - distancia / D_MAX) * 100))
+  )
+  return compatibilidad
+}
 
-        if (!res.ok) {
-          throw new Error(data.error || 'Error al obtener compatibilidad')
-        }
+const Compatibilidad = ({ perfilUsuario, perfilPerro }) => {
+  const [resultado, setResultado] = useState(null)
 
-        setResultados(data)
-      } catch (err) {
-        setError(err.message)
-      }
-    }
-
-    if (user?.id && token) {
-      obtenerCompatibilidad()
-    }
-  }, [user, token, enabled])
-
-  if (!enabled) {
-    return (
-      <div className={styles.contenedor}>
-        <h3 className={styles.titulo}>Resultados de Compatibilidad</h3>
-        <p className={styles.vacio}>Completa la encuesta para ver tus resultados.</p>
-      </div>
-    )
+  const handleCalcular = () => {
+    const comp = calcularCompatibilidad(perfilUsuario, perfilPerro)
+    setResultado(comp)
   }
 
   return (
     <div className={styles.contenedor}>
-      <h3 className={styles.titulo}>Resultados de Compatibilidad</h3>
+      <h3 className={styles.titulo}>Compatibilidad Usuario ↔ Perro</h3>
 
-      {error && <p className={styles.error}>{error}</p>}
-
-      {resultados.length > 0 ? (
-        <div className={styles.resultadosWrapper}>
-          <ul className={styles.lista}>
-            {resultados.map((perro) => (
-              <li key={perro.perro_id} className={styles.item}>
-                🐶 {perro.nombre}: <strong>{perro.compatibilidad}%</strong>
-              </li>
-            ))}
-          </ul>
-        </div>
+      {!perfilUsuario || !perfilPerro ? (
+        <p className={styles.vacio}>
+          Primero completa ambos perfiles para calcular la compatibilidad.
+        </p>
       ) : (
-        !error && <p className={styles.vacio}>No hay resultados para mostrar.</p>
+        <>
+          <div className={styles.vectores}>
+            <p><strong>Perfil Usuario:</strong> [{perfilUsuario?.join(', ')}]</p>
+            <p><strong>Perfil Perro:</strong> [{perfilPerro?.join(', ')}]</p>
+          </div>
+
+          <button onClick={handleCalcular} className={styles.boton}>
+            Calcular Compatibilidad
+          </button>
+
+          {resultado !== null && (
+            <div className={styles.resultado}>
+              <p>
+                ❤️ Compatibilidad: <strong>{resultado}%</strong>
+              </p>
+            </div>
+          )}
+        </>
       )}
     </div>
   )
