@@ -6,22 +6,28 @@ import ProductosAdminPanel from './ProductosAdminPanel'
 import SolicitudesAdminPanel from './SolicitudesAdminPanel'
 import styles from './AdminPanel.module.css'
 
-const AdminPanel = () => {
+const AdminPanel = ({ tabs = [] }) => {
   const token = useAuthStore((state) => state.token)
-  const [activeTab, setActiveTab] = useState('perros')
+  const [activeTab, setActiveTab] = useState(tabs[0]) // arrancamos con la primera pestaña que venga en props
 
   return (
     <div className={styles.container}>
       <h2>Panel de Administración</h2>
 
-      {/* Controles de navegación */}
+      {/* Controles de navegación dinámicos */}
       <div className={styles.tabs}>
-        <button onClick={() => setActiveTab('perros')}>Perros</button>
-        <button onClick={() => setActiveTab('productos')}>Productos</button>
-        <button onClick={() => setActiveTab('solicitudes')}>Solicitudes</button>
+        {tabs.includes('perros') && (
+          <button onClick={() => setActiveTab('perros')}>Perros</button>
+        )}
+        {tabs.includes('productos') && (
+          <button onClick={() => setActiveTab('productos')}>Productos</button>
+        )}
+        {tabs.includes('solicitudes') && (
+          <button onClick={() => setActiveTab('solicitudes')}>Solicitudes</button>
+        )}
       </div>
 
-      {/* Render condicional de cada sección */}
+      {/* Render condicional */}
       {activeTab === 'perros' && <PerrosAdminPanel token={token} />}
       {activeTab === 'productos' && <ProductosAdminPanel token={token} />}
       {activeTab === 'solicitudes' && <SolicitudesAdminPanel token={token} />}

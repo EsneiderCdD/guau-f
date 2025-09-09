@@ -25,7 +25,8 @@ const Tienda = () => {
           <ProductoCard key={producto.id} producto={producto} />
         ))}
       </div>
-      <AdminPanel />
+      <AdminPanel tabs={['productos']} />
+
     </>
   )
 }

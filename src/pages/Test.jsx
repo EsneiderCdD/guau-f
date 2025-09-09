@@ -4,7 +4,7 @@ import Compatibilidad from '@components/test/Compatibilidad'
 import Navbar from '@components/navbar/Navbar'
 import styles from './Test.module.css'
 import PerroEncuesta from '../components/test/PerroEncuesta'
-
+import AdminPanel from '../components/Admin/AdminPanel'
 const Test = () => {
   const [perfilUsuario, setPerfilUsuario] = useState(null)
   const [perfilPerro, setPerfilPerro] = useState(null)
@@ -19,7 +19,10 @@ const Test = () => {
       <PerroEncuesta onFinish={(res) => setPerfilPerro(res.vector)} />
 
       <Compatibilidad perfilUsuario={perfilUsuario} perfilPerro={perfilPerro} />
-    </div>
+      
+      <AdminPanel tabs={['solicitudes']} />
+
+   </div>
   )
 }
 

@@ -23,7 +23,8 @@ const Home = () => {
           <PerroCard key={perro.id} perro={perro} />
         ))}
       </div>
-      <AdminPanel />
+      <AdminPanel tabs={['perros']} />
+
     </>
   )
 }
