@@ -1,145 +1,143 @@
 // src/components/test/EncuestaForm.jsx
 import React, { useState } from 'react'
-import useTestFlow from './hooks/useTestFlow'
-import Pregunta from './Pregunta'
-import styles from './EncuestaForm.module.css'
-import useAuthStore from '@store/authStore'
-import preguntas from './preguntas' // para cálculo final
-import AdminPanel from '../Admin/AdminPanel'
-const EncuestaForm = ({ onComplete }) => {
-  const { token } = useAuthStore()
-  const {
-    estado,
-    greeting,
-    closing,
-    answers,
-    start,
-    answer,
-    goBack
-  } = useTestFlow()
+import styles from './PerroEncuesta.module.css' // reutilizamos el estilo
+import { tiempo, experiencia, apego, motivacion, rasgos } from './data/usuarios'
 
+const dimensiones = [
+  { key: 'tiempo', label: 'Tiempo Disponible', items: tiempo },
+  { key: 'experiencia', label: 'Experiencia', items: experiencia },
+  { key: 'apego', label: 'Apego Emocional', items: apego },
+  { key: 'motivacion', label: 'Motivación', items: motivacion }
+]
+
+const opciones = [
+  { value: 0, label: '0' },
+  { value: 1, label: '1' },
+  { value: 2, label: '2' },
+  { value: 3, label: '3' },
+  { value: 4, label: '4' }
+]
+
+const EncuestaForm = () => {
+  const [answers, setAnswers] = useState({})
   const [error, setError] = useState(null)
-  const [submitting, setSubmitting] = useState(false)
-  const [mensaje, setMensaje] = useState(null)
+  const [result, setResult] = useState(null)
 
-  // util: agrupa los ids por dimensión
-  const gruposPorDimension = preguntas.reduce((acc, p) => {
-    acc[p.dimension] = acc[p.dimension] || []
-    acc[p.dimension].push(p.id)
-    return acc
-  }, {})
-
-  const calcularScore = (keys) => {
-    const valores = keys.map((key) => Number(answers[key] || 0))
-    const suma = valores.reduce((acc, val) => acc + val, 0)
-    const promedio = suma / keys.length
-    return Math.round(promedio)
+  const handleChange = (id, value) => {
+    setAnswers((prev) => ({ ...prev, [id]: Number(value) }))
   }
 
-  const calcularBinario = (keys) => {
-    const valores = keys.map((key) => Number(answers[key] || 0))
-    const suma = valores.reduce((acc, val) => acc + val, 0)
-    return suma >= Math.ceil(keys.length / 2) ? 1 : 0
+  const calcularPromedio = (items) => {
+    const vals = items.map((q) => Number(answers[q.id] ?? 0))
+    return vals.reduce((a, b) => a + b, 0) / items.length
   }
 
-  const handleSubmit = async () => {
+  const allAnswered = () => {
+    const allIds = dimensiones.flatMap((d) => d.items.map((q) => q.id))
+    return allIds.every((id) => answers[id] !== undefined)
+  }
+
+  const handleSubmit = () => {
     setError(null)
-    setMensaje(null)
-
-    // Validar que todas las preguntas tengan respuesta
-    const todosLosIds = preguntas.map((p) => p.id)
-    const incompletas = todosLosIds.some((id) => answers[id] === undefined)
-
-    if (incompletas) {
-      setError('Por favor responde todas las preguntas antes de enviar.')
+    if (!allAnswered()) {
+      setError('Por favor responde todas las preguntas.')
       return
     }
 
-    // Calcular scores por dimensión (los nombres del backend)
-    const tiempo_disponible = calcularScore(gruposPorDimension['tiempo'] || [])
-    const experiencia = calcularBinario(gruposPorDimension['experiencia'] || [])
-    const apego_emocional = calcularScore(gruposPorDimension['apego'] || [])
+    const pTiempo = Number(calcularPromedio(tiempo).toFixed(2))
+    const pExp = Number(calcularPromedio(experiencia).toFixed(2))
+    const pApego = Number(calcularPromedio(apego).toFixed(2))
+    const pMotiv = Number(calcularPromedio(motivacion).toFixed(2))
 
-    setSubmitting(true)
-    try {
-      const res = await fetch('http://127.0.0.1:5000/match/responder', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          tiempo_disponible,
-          experiencia,
-          apego_emocional
-        })
-      })
+    const vector = [pTiempo, pExp, pApego, pMotiv]
+    const indiceGlobal = Math.round(((pTiempo + pExp + pApego + pMotiv) / 4) * 100) / 100
 
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error || 'Error al enviar el formulario')
-
-      setMensaje(data.mensaje)
-      // notificar al componente padre que el test terminó correctamente
-      onComplete && onComplete()
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setSubmitting(false)
-    }
+    setResult({ vector, indiceGlobal })
   }
 
-  // Handler para cuando el usuario selecciona una opción en la pregunta actual
-  const handleOptionSelect = (id, valor) => {
-    // delegar al hook (guarda y avanza)
-    answer(id, valor)
+  const handleReset = () => {
+    setAnswers({})
+    setResult(null)
+    setError(null)
   }
 
   return (
-    <div className={styles.formWrapper}>
-      <div className={styles.formContainer}>
-        {estado.saludo && (
-          <div className={styles.bubble}>
-            <p>{greeting}</p>
-            <button onClick={start} className={styles.boton}>Comenzar</button>
-          </div>
-        )}
+    <div className={styles.contenedor}>
+      <h3 className={styles.titulo}>Encuesta de Perfil de Usuario (Simulada)</h3>
+      <p className={styles.intro}>
+        Esta encuesta no usa backend. Si recargas, se perderán las respuestas.
+      </p>
 
-        {estado.preguntaActual && (
-          <div className={styles.questionBlock}>
-            <Pregunta
-              pregunta={estado.preguntaActual}
-              onChange={handleOptionSelect}
-              valorSeleccionado={answers[estado.preguntaActual.id]}
-            />
-            <div className={styles.controls}>
-              <button onClick={goBack} className={styles.botonSecundario}>Atrás</button>
-              <p className={styles.indicador}>Pregunta {estado.index + 1} de {estado.total}</p>
-            </div>
-          </div>
-        )}
+      <div className={styles.encuesta}>
+        {dimensiones.map((dim) => (
+          <section key={dim.key} className={styles.dimension}>
+            <h4 className={styles.dimTitulo}>{dim.label}</h4>
+            <ol className={styles.listaPreguntas}>
+              {dim.items.map((q, idx) => (
+                <li key={q.id} className={styles.pregunta}>
+                  <div className={styles.pTexto}>
+                    <strong>{idx + 1}.</strong> {q.texto}
+                  </div>
+                  <div className={styles.opciones}>
+                    {opciones.map((opt) => (
+                      <label key={opt.value} className={styles.opcion}>
+                        <input
+                          type="radio"
+                          name={q.id}
+                          value={opt.value}
+                          checked={answers[q.id] === opt.value}
+                          onChange={(e) => handleChange(q.id, e.target.value)}
+                        />
+                        <span>{opt.label}</span>
+                      </label>
+                    ))}
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+        ))}
 
-        {estado.cierre && (
-          <div className={styles.bubble}>
-            <p>{closing}</p>
-            <button onClick={handleSubmit} className={styles.boton} disabled={submitting}>
-              {submitting ? 'Enviando...' : 'Enviar y ver resultados'}
-            </button>
-            {error && <p className={styles.error}>{error}</p>}
-            {mensaje && <p className={styles.success}>{mensaje}</p>}
+        <section className={styles.dimension}>
+          <h4 className={styles.dimTitulo}>Rasgos de contexto (solo visualización)</h4>
+          <div className={styles.rasgosGrid}>
+            {rasgos.map((r) => (
+              <div key={r.id} className={styles.rasgoCard}>
+                <div className={styles.rasgoLabel}>{r.texto}</div>
+                <div className={styles.rasgoValue}>{r.valor || '—'}</div>
+                <small className={styles.rasgoNote}>
+                  (No interactivo — no participa en el cálculo)
+                </small>
+              </div>
+            ))}
           </div>
-        )}
+        </section>
 
-        {estado.finished && (
-          <div className={styles.finishedMessage}>
-            <p className={styles.success}>Finalizado. Puedes ver los resultados.</p>
+        {error && <p className={styles.error}>{error}</p>}
+
+        <div className={styles.controls}>
+          <button onClick={handleSubmit} className={styles.boton}>
+            Calcular perfil de usuario
+          </button>
+          <button onClick={handleReset} className={styles.botonSecundario}>
+            Reiniciar
+          </button>
+        </div>
+
+        {result && (
+          <div className={styles.resultados}>
+            <h4>Resultado</h4>
+            <p>
+              <strong>Vector perfil (4 dimensiones):</strong>{' '}
+              [{result.vector.map((v) => v.toFixed(2)).join(', ')}]
+            </p>
+            <p>
+              <strong>Índice global:</strong> {result.indiceGlobal.toFixed(2)} / 4
+            </p>
           </div>
         )}
-        
       </div>
-     
-      
     </div>
-    
   )
 }
 
