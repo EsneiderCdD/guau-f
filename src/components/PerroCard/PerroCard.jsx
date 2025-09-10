@@ -5,19 +5,35 @@ import perroCardStyles from './perroCardStyles'
 
 const PerroCard = ({ perro }) => {
   const [mostrarSegunda, setMostrarSegunda] = useState(false)
+  const [bloquearHover, setBloquearHover] = useState(false) // 👈 nuevo
   const navigate = useNavigate()
 
   const config = perroCardStyles[perro.id] || {}
 
   const handleLlamar = () => {
+    // Bloquea hover y muestra segunda imagen
+    setBloquearHover(true)
     setMostrarSegunda(true)
+
     setTimeout(() => {
       navigate(`/perros/${perro.id}`)
     }, 3000)
   }
 
+  const handleMouseEnter = () => {
+    if (!bloquearHover) setMostrarSegunda(true)
+  }
+
+  const handleMouseLeave = () => {
+    if (!bloquearHover) setMostrarSegunda(false)
+  }
+
   return (
-    <div className={styles.card}>
+    <div
+      className={styles.card}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       {/* Contenedor imágenes */}
       <div className={styles.imageContainer}>
         <img

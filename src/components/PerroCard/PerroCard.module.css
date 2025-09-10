@@ -1,4 +1,7 @@
 /* --- Tu estilo de card se queda igual --- */
+*{
+  border: red dotted 1px
+}
 .card {
   background: url('/backgrounds/fondo-cards.webp') repeat center center;
   border-radius: 12px;

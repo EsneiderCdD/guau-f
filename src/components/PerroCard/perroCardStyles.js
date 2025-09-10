@@ -1,22 +1,25 @@
 const perroCardStyles = {
   1: {
     imagenUno: {
-      width: "100%",
-      top: "55%",
-      height: "auto"
+      width: "auto%",
+      top: "60%",
+      height: "50%"
     },
     imagenDos: {
-      top: "30%",
+      top: "35%",
+      height: "95%"
     },
   },
   2: {
     imagenUno: {
       width: "auto",
-      top: "40%",
-      height: "100%"
+      top: "45%",
+      left: "50%",
+      height: "85%"
     },
     imagenDos: {
-      top: "35%",
+      top: "44%",
+      height: "85%"
     },
   },
   3: {
@@ -44,9 +47,9 @@ const perroCardStyles = {
   5: {
     imagenUno: {
       width: "auto",
-      top: "46%",
-      height: "90%",
-      left: "31%"
+      top: "45%",
+      height: "85%",
+      left: "29%"
     },
     imagenDos: {
       width: "auto",
@@ -58,9 +61,9 @@ const perroCardStyles = {
   6: {
     imagenUno: {
       width: "auto",
-      top: "50%",
-      height: "80%",
-      left: "30%"
+      top: "53%",
+      height: "70%",
+      left: "25%"
     },
     imagenDos: {
       width: "auto",
@@ -72,15 +75,29 @@ const perroCardStyles = {
   7: {
     imagenUno: {
       width: "auto",
-      top: "55%",
+      top: "45%",
       height: "90%",
       left: "33%"
     },
     imagenDos: {
       width: "auto",
-      top: "47%",
+      top: "42%",
       height: "95%",
       left: "46%"
+    },
+  },
+    8: {
+    imagenUno: {
+      width: "auto",
+      top: "35%",
+      height: "70%",
+      left: "55%"
+    },
+    imagenDos: {
+      width: "auto",
+      top: "45%",
+      height: "85%",
+      left: "50%"
     },
   },
 }
