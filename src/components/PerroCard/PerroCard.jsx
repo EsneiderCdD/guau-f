@@ -1,22 +1,27 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import styles from './PerroCard.module.css'
 import perroCardStyles from './perroCardStyles'
 
 const PerroCard = ({ perro }) => {
   const [mostrarSegunda, setMostrarSegunda] = useState(false)
-  const alternarImagen = () => setMostrarSegunda(prev => !prev)
+  const navigate = useNavigate()
 
   // Buscar config por id (si no existe, será un objeto vacío)
   const config = perroCardStyles[perro.id] || {}
 
+  const handleLlamar = () => {
+    // Cambiar a imagen 2
+    setMostrarSegunda(true)
+
+    // Esperar 3 segundos y luego navegar
+    setTimeout(() => {
+      navigate(`/perros/${perro.id}`)
+    }, 3000)
+  }
+
   return (
-    <div
-      className={styles.card}
-      onMouseEnter={() => setMostrarSegunda(true)}
-      onMouseLeave={() => setMostrarSegunda(false)}
-      onClick={alternarImagen}
-    >
+    <div className={styles.card}>
       {/* Imagen 1 */}
       <img
         className={`${styles.imageUno} ${!mostrarSegunda ? styles.visible : styles.oculta}`}
@@ -33,7 +38,9 @@ const PerroCard = ({ perro }) => {
         style={config.imagenDos}   
       />
 
-      <Link className={styles.link} to={`/perros/${perro.id}`}>Ver más</Link>
+      <button className={styles.link} onClick={handleLlamar}>
+        Llamar
+      </button>
     </div>
   )
 }
