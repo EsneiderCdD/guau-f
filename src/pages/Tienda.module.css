@@ -1,19 +1,19 @@
-
+/* HEADER */
 .header {
   position: relative;
   width: 100%;
   overflow: hidden;
-
 }
+
 .header::after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 220px; /* Altura del desvanecido */
+  height: 220px;
   background: linear-gradient(to bottom, #fdf3d100 0%, #FDF3D1 100%);
-  pointer-events: none; /* Para que no interfiera con clicks */
+  pointer-events: none;
 }
 
 .background {
@@ -29,25 +29,56 @@
   transform: translate(-50%, -50%);
   height: 500px;
   object-fit: contain;
-  z-index: 3; 
+  z-index: 3;
 }
 
+/* NAVBAR */
+.layout {
+  position: fixed;
+  top: 125px;
+  left: -11px;
+  height: 100vh;
+  z-index: 20;
+}
+
+/* COLLAGE con GRID */
+.parent {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-column-gap: 12px;
+grid-row-gap: 12px;
+  width: 100%;
+  height: 100%; /* ocupa toda la pantalla */
+
+}
+
+.parent img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* para que la imagen se adapte */
+}
+
+/* Posiciones de cada celda */
+.div1 { grid-area: 1 / 1 / 4 / 4; }
+.div2 { grid-area: 1 / 4 / 3 / 6; }
+.div3 { grid-area: 1 / 6 / 2 / 7; }
+.div4 { grid-area: 2 / 6 / 5 / 7; }
+.div5 { grid-area: 4 / 1 / 7 / 3; }
+.div6 { grid-area: 4 / 3 / 7 / 4; }
+.div7 { grid-area: 3 / 4 / 5 / 6; }
+.div8 { grid-area: 5 / 4 / 7 / 6; }
+.div9 { grid-area: 5 / 6 / 6 / 7; }
+.div10 { grid-area: 6 / 6 / 7 / 7; }
+
+/* PRODUCTOS */
 .wrapper {
   position: relative;
-  top: -200px; 
+  top: -200px;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
-  gap: 5rem;
-  padding: 2rem;
-  max-width: 1350px;
-  margin: 0 auto;
-}
+  height: 100%;
+  width: 100%;
 
-.layout {
-  position: fixed;   
-  top: 125px;            
-  left: -11px;         
-  height: 100vh;     
-  z-index: 20;      
 }
