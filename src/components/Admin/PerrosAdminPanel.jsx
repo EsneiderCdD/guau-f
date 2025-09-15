@@ -38,9 +38,9 @@ const PerrosAdminPanel = ({ token }) => {
             <th>ID</th>
             <th>Nombre</th>
             <th>Edad</th>
-            <th>Tiempo</th>
-            <th>Experiencia</th>
-            <th>Apego</th>
+            <th>Energía</th>
+            <th>Regulación emocional</th>
+            <th>Apego vinculo</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -61,7 +61,8 @@ const PerrosAdminPanel = ({ token }) => {
         <EditarPerroForm
           perro={perroSeleccionado}
           token={token}
-          onEditado={cargarPerros}
+          onPerroActualizado={cargarPerros}           // Refresca la lista
+          onCancel={() => setPerroSeleccionado(null)} // Cierra el formulario
         />
       )}
     </div>
