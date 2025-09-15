@@ -1,7 +1,7 @@
 import useEliminarPerro from '@hooks/useEliminarPerro'
 import styles from './AdminPanel.module.css'
 
-const PerroRow = ({ perro, onDelete, onEdit }) => {
+const PerroRow = ({ perro, onDelete, onEdit, onMatch }) => {
   const { eliminarPerro, error } = useEliminarPerro()
 
   const handleDelete = async () => {
@@ -33,6 +33,13 @@ const PerroRow = ({ perro, onDelete, onEdit }) => {
         >
           Editar
         </button>
+        <button
+          className={styles.matchButton}
+          onClick={() => onMatch(perro)}
+        >
+          Match
+        </button>
+
 
         {error && <p className={styles.error}>{error}</p>}
       </td>

@@ -30,7 +30,6 @@ const EditarPerroForm = ({ perro, onPerroActualizado, onCancel }) => {
         imagen_url: form.imagen_url,
         imagen_card_uno: form.imagen_card_uno,
         imagen_card_dos: form.imagen_card_dos,
-        // Dimensiones actualizadas con nombres del backend
         energia: parseInt(form.energia),
         apego_vinculo: parseInt(form.apego_vinculo),
         regulacion_emocional: parseInt(form.regulacion_emocional),
@@ -59,51 +58,51 @@ const EditarPerroForm = ({ perro, onPerroActualizado, onCancel }) => {
       <input name="imagen_card_dos" value={form.imagen_card_dos || ''} onChange={handleChange} placeholder="URL Imagen Card Dos" />
 
       <fieldset className={styles.fieldset}>
-  <legend>Dimensiones</legend>
-  <input
-    type="number"
-    name="energia"
-    value={form.energia || ''}
-    onChange={handleChange}
-    placeholder="Energía (0–4)"
-    min="0"
-    max="4"
-  />
-  <input
-    type="number"
-    name="regulacion_emocional"
-    value={form.regulacion_emocional || ''}
-    onChange={handleChange}
-    placeholder="Regulación emocional (0–4)"
-    min="0"
-    max="4"
-  />
-  <input
-    type="number"
-    name="apego_vinculo"
-    value={form.apego_vinculo || ''}
-    onChange={handleChange}
-    placeholder="Apego vinculo (0–4)"
-    min="0"
-    max="4"
-  />
-  <input
-    type="number"
-    name="exploracion_libertad"
-    value={form.exploracion_libertad || ''}
-    onChange={handleChange}
-    placeholder="Exploración libertad (0–4)"
-    min="0"
-    max="4"
-  />
-  <input
-    type="text"
-    name="datos_fisicos"
-    value={form.datos_fisicos || ''}
-    onChange={handleChange}
-    placeholder="Datos físicos (opcional)"
-  />
-</fieldset>
+        <legend>Dimensiones</legend>
+        <input
+          type="number"
+          name="energia"
+          value={form.energia || ''}
+          onChange={handleChange}
+          placeholder="Energía (0–4)"
+          min="0"
+          max="4"
+        />
+        <input
+          type="number"
+          name="regulacion_emocional"
+          value={form.regulacion_emocional || ''}
+          onChange={handleChange}
+          placeholder="Regulación emocional (0–4)"
+          min="0"
+          max="4"
+        />
+        <input
+          type="number"
+          name="apego_vinculo"
+          value={form.apego_vinculo || ''}
+          onChange={handleChange}
+          placeholder="Apego vinculo (0–4)"
+          min="0"
+          max="4"
+        />
+        <input
+          type="number"
+          name="exploracion_libertad"
+          value={form.exploracion_libertad || ''}
+          onChange={handleChange}
+          placeholder="Exploración libertad (0–4)"
+          min="0"
+          max="4"
+        />
+        <input
+          type="text"
+          name="datos_fisicos"
+          value={form.datos_fisicos || ''}
+          onChange={handleChange}
+          placeholder="Datos físicos (opcional)"
+        />
+      </fieldset>
 
 
       <div style={{ display: 'flex', gap: '1rem' }}>

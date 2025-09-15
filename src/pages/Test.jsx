@@ -5,7 +5,7 @@ import Navbar from '@components/navbar/Navbar'
 import styles from './Test.module.css'
 import PerroEncuesta from '../components/test/PerroEncuesta'
 import AdminPanel from '../components/Admin/AdminPanel'
-import ChatbotWrapper from '@components/test/chatbot/ChatbotWrapper'   // 🔹 nuevo
+import ChatbotWrapper from '@components/test/chatbot/ChatbotWrapper'   
 
 const Test = () => {
   const [perfilUsuario, setPerfilUsuario] = useState(null)
@@ -23,7 +23,7 @@ const Test = () => {
       </div>
 
       <EncuestaForm onComplete={(res) => setPerfilUsuario(res.vector)} />
-      <PerroEncuesta onFinish={(res) => setPerfilPerro(res.vector)} />
+      {/* <PerroEncuesta onFinish={(res) => setPerfilPerro(res.vector)} /> */}
 
       <Compatibilidad perfilUsuario={perfilUsuario} perfilPerro={perfilPerro} />
       

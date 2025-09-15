@@ -18,7 +18,7 @@ const opciones = [
   { value: 4, label: '4' }
 ]
 
-const EncuestaForm = ({onComplete}) => {
+const EncuestaForm = ({ onComplete }) => {
   const [answers, setAnswers] = useState({})
   const [error, setError] = useState(null)
   const [result, setResult] = useState(null)
@@ -38,26 +38,26 @@ const EncuestaForm = ({onComplete}) => {
   }
 
   const handleSubmit = () => {
-  setError(null)
-  if (!allAnswered()) {
-    setError('Por favor responde todas las preguntas.')
-    return
+    setError(null)
+    if (!allAnswered()) {
+      setError('Por favor responde todas las preguntas.')
+      return
+    }
+
+    const pTiempo = Number(calcularPromedio(tiempo).toFixed(2))
+    const pExp = Number(calcularPromedio(experiencia).toFixed(2))
+    const pApego = Number(calcularPromedio(apego).toFixed(2))
+    const pMotiv = Number(calcularPromedio(motivacion).toFixed(2))
+
+    const vector = [pTiempo, pExp, pApego, pMotiv]
+    const indiceGlobal = Math.round(((pTiempo + pExp + pApego + pMotiv) / 4) * 100) / 100
+
+    const res = { vector, indiceGlobal }
+    setResult(res)
+
+    // 👇 notifica al padre
+    if (onComplete) onComplete(res)
   }
-
-  const pTiempo = Number(calcularPromedio(tiempo).toFixed(2))
-  const pExp = Number(calcularPromedio(experiencia).toFixed(2))
-  const pApego = Number(calcularPromedio(apego).toFixed(2))
-  const pMotiv = Number(calcularPromedio(motivacion).toFixed(2))
-
-  const vector = [pTiempo, pExp, pApego, pMotiv]
-  const indiceGlobal = Math.round(((pTiempo + pExp + pApego + pMotiv) / 4) * 100) / 100
-
-  const res = { vector, indiceGlobal }
-  setResult(res)
-
-  // 👇 notifica al padre
-  if (onComplete) onComplete(res)
-}
 
   const handleReset = () => {
     setAnswers({})
