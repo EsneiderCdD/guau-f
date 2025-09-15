@@ -112,7 +112,7 @@ h3 {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 1rem;
-  background: #fff;
+  background: #ffffff00;
 }
 
 .fieldset legend {
@@ -136,7 +136,7 @@ h3 {
 }
 
 .form button[type="button"] {
-  background-color: #e0e0e0;
+  background-color: #e0e0e000;
   color: #333;
 }
 
