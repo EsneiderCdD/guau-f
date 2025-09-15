@@ -13,6 +13,7 @@
   "dependencies": {
     "framer-motion": "^12.23.12",
     "react": "^19.1.0",
+    "react-chatbot-kit": "^2.2.2",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.7.0",
     "zustand": "^5.0.6"
