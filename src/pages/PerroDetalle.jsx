@@ -8,7 +8,7 @@ import Navbar from '@/components/Navbar/Navbar'
 import { motion } from 'framer-motion'
 import Stats from '../components/stats/Stats'
 import { getCollageLayout } from '../utils/collageLayouts'  // 👈 importamos layouts
-
+import AdminPanel from '../components/Admin/AdminPanel'
 const PerroDetalle = () => {
   const { id } = useParams()
   const { data: perro, isLoading, error } = usePerroPorId(id)
@@ -85,6 +85,8 @@ const PerroDetalle = () => {
             )}
           </div>
         </div>
+
+        {isAuth && <AdminPanel tabs={['perros']} />}
       </section>
     </div>
   )
