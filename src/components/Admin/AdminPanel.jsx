@@ -25,12 +25,17 @@ const AdminPanel = ({ tabs = [] }) => {
         {tabs.includes('solicitudes') && (
           <button onClick={() => setActiveTab('solicitudes')}>Solicitudes</button>
         )}
+        {tabs.includes('test-perros') && (
+          
+          <button onClick={() => setActiveTab('test-perros')}>Test Perros</button>
+        )}
       </div>
 
       {/* Render condicional */}
       {activeTab === 'perros' && <PerrosAdminPanel token={token} />}
       {activeTab === 'productos' && <ProductosAdminPanel token={token} />}
       {activeTab === 'solicitudes' && <SolicitudesAdminPanel token={token} />}
+      {activeTab === 'test-perros' && <PerrosAdminPanel token={token} />}
     </div>
   )
 }
