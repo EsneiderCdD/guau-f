@@ -23,12 +23,12 @@ const Tienda = () => {
       <div className={styles.wrapper}> 
         <div className={styles.parent}>
           <div className={styles.div1}><img src="/tienda/tienda7.png" /></div>
-          <div className={styles.div2}><img src="/tienda/tienda2.png" /></div>
-          <div className={styles.div3}><img src="/tienda/tienda5.png" /></div>
+          <div className={styles.div2}><img src="/tienda/tienda3.png" /></div>
+          <div className={styles.div3}><img src="/tienda/tienda2.png" /></div>
           <div className={styles.div4}><img src="tienda/default.png" /></div>
           <div className={styles.div5}><img src="tienda/default.png" /></div>
           <div className={styles.div6}><img src="/tienda/tienda1.png" /></div>
-          <div className={styles.div7}><img src="/tienda/tienda3.png" /></div>
+          <div className={styles.div7}><img src="/tienda/tienda4.png" /></div>
           <div className={styles.div8}><img src="tienda/default.png" /></div>
           <div className={styles.div9}><img src="tienda/default.png" /></div>
           <div className={styles.div10}><img src="tienda/default.png" /></div>
