@@ -23,7 +23,11 @@ const Tienda = () => {
       <div className={styles.wrapper}> 
         <div className={styles.parent}>
           <div className={styles.div1}><img src="/tienda/tienda7.png" /></div>
-          <div className={styles.div2}><img src="/tienda/tienda3.png" /></div>
+          <div className={styles.div2}><img src="/tienda/tienda3.png" /> 
+                  <button className={styles.button}>
+                    <span>Llamar</span>
+                  </button>
+          </div>
           <div className={styles.div3}><img src="/tienda/tienda2.png" /></div>
           <div className={styles.div4}><img src="tienda/default.png" /></div>
           <div className={styles.div5}><img src="tienda/default.png" /></div>
