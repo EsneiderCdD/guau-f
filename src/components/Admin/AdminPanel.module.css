@@ -76,51 +76,76 @@ h3 {
 
 .table th {
   background: #eeeeee91;
+
 }
 
 .form {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
   background: url('/backgrounds/fondo-cards.webp') repeat center center;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: 2rem;
-  padding: 3.5rem;
-  border-radius: 10px;
-}
-.inputs  {
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: row;
-  gap: 2rem;
-  
+   
+  gap: 1rem; /* Espacio entre campos */
  
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-.form input {
-  padding: 1rem;
-  border: 2px solid #a15a17;
-  background-color: #f1c48eaf;
-  border-radius: 35px;
-  width: 225px;
-  letter-spacing: 1px;
-  font-family: "Special Gothic Condensed One" ;
-
-}
-
-.form button {
- padding: 1rem;
-  border: 2px solid #a15a17;
-  border-radius: 35px;
-  background-color: bisque;
-  letter-spacing: 1px;
-  font-family: "Chewy" ;
-  cursor: pointer;
-}
-
-
-.error {
-  color: red;
+/* Inputs y selects */
+.form input,
+.form select,
+.form textarea {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
   font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+/* Fieldset para dimensiones */
+.fieldset {
+  grid-column: span 2; /* El bloque de dimensiones ocupa todo el ancho */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #fff;
+}
+
+.fieldset legend {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+/* Botones al final */
+.form button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.form button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+}
+
+.form button[type="button"] {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+/* Mensaje de error */
+.error {
+  grid-column: span 2; /* Error ocupa todo el ancho */
+  color: #d9534f;
+  font-weight: bold;
+  margin-top: 0.5rem;
 }
 
 .textarea{
