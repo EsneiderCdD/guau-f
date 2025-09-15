@@ -1,4 +1,3 @@
-// src/components/Admin/PerroRow.jsx
 import useEliminarPerro from '@hooks/useEliminarPerro'
 import styles from './AdminPanel.module.css'
 
@@ -20,9 +19,10 @@ const PerroRow = ({ perro, onDelete, onEdit }) => {
       <td>{perro.id}</td>
       <td>{perro.nombre}</td>
       <td>{perro.edad}</td>
-      <td>{perro.tiempo_requerido}</td>
-      <td>{perro.requiere_experiencia}</td>
-      <td>{perro.apego_esperado}</td>
+      <td>{perro.energia}</td>
+      <td>{perro.regulacion_emocional}</td>
+      <td>{perro.apego_vinculo}</td>
+      <td>{perro.exploracion_libertad}</td>
       <td>
         <button className={styles.deleteButton} onClick={handleDelete}>
           Eliminar
@@ -37,7 +37,6 @@ const PerroRow = ({ perro, onDelete, onEdit }) => {
         {error && <p className={styles.error}>{error}</p>}
       </td>
     </tr>
-
   )
 }
 

@@ -39,9 +39,9 @@ const PerrosAdminPanel = ({ token }) => {
             <th>Nombre</th>
             <th>Edad</th>
             <th>Energía</th>
-            <th>Regulación emocional</th>
-            <th>Apego vinculo</th>
-            <th>Acciones</th>
+            <th>Emocion</th>
+            <th>Apego</th>
+            <th>Exploracion</th>
           </tr>
         </thead>
         <tbody>

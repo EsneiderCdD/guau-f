@@ -65,36 +65,36 @@ const EditarPerroForm = ({ perro, onPerroActualizado, onCancel }) => {
     name="energia"
     value={form.energia || ''}
     onChange={handleChange}
-    placeholder="Energía (1–3)"
-    min="1"
-    max="3"
+    placeholder="Energía (0–4)"
+    min="0"
+    max="4"
   />
   <input
     type="number"
     name="regulacion_emocional"
     value={form.regulacion_emocional || ''}
     onChange={handleChange}
-    placeholder="Regulación emocional (1–3)"
-    min="1"
-    max="3"
+    placeholder="Regulación emocional (0–4)"
+    min="0"
+    max="4"
   />
   <input
     type="number"
     name="apego_vinculo"
     value={form.apego_vinculo || ''}
     onChange={handleChange}
-    placeholder="Apego vinculo (1–3)"
-    min="1"
-    max="3"
+    placeholder="Apego vinculo (0–4)"
+    min="0"
+    max="4"
   />
   <input
     type="number"
     name="exploracion_libertad"
     value={form.exploracion_libertad || ''}
     onChange={handleChange}
-    placeholder="Exploración libertad (1–3)"
-    min="1"
-    max="3"
+    placeholder="Exploración libertad (0–4)"
+    min="0"
+    max="4"
   />
   <input
     type="text"

@@ -85,10 +85,7 @@ const AgregarPerroForm = ({ onPerroAgregado }) => {
               />
             )}
 
-
-
           </div>
-
 
           <input
             name="imagen_card_uno"
@@ -97,16 +94,7 @@ const AgregarPerroForm = ({ onPerroAgregado }) => {
             placeholder="URL Imagen Card Uno"
           />
 
-
-
-
-
-
         </div>
-
-
-
-
 
         <div className={styles.cardContainer}>
           <div className={styles.card}>
@@ -136,45 +124,7 @@ const AgregarPerroForm = ({ onPerroAgregado }) => {
       </div>
       <div>
 
-
       </div>
-
-      {/* <fieldset className={styles.fieldset}>
-        <legend>Dimensiones</legend>
-
-        <input
-          type="number"
-          name="tiempo_requerido"
-          value={form.tiempo_requerido}
-          onChange={handleChange}
-          placeholder="Tiempo requerido (1–3)"
-          min="1"
-          max="3"
-        />
-        <input
-          type="number"
-          name="requiere_experiencia"
-          value={form.requiere_experiencia}
-          onChange={handleChange}
-          placeholder="Requiere experiencia (0–1)"
-          min="0"
-          max="1"
-        />
-        <input
-          type="number"
-          name="apego_esperado"
-          value={form.apego_esperado}
-          onChange={handleChange}
-          placeholder="Apego esperado (0–2)"
-          min="0"
-          max="2"
-        />
-      </fieldset> */}
-
-
-
-
-
 
       <button type="submit" disabled={isLoading}>
         {isLoading ? 'Agregando...' : 'Agregar'}
