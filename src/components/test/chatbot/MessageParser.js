@@ -1,4 +1,3 @@
-// src/components/test/chatbot/MessageParser.js
 class MessageParser {
   constructor(actionProvider) {
     this.actionProvider = actionProvider;
@@ -7,11 +6,20 @@ class MessageParser {
   parse(message) {
     const lower = message.toLowerCase();
 
-    if (lower.includes("hola")) {
-      this.actionProvider.saludar();
+    if (lower.includes("empezar")) {
+      this.actionProvider.startSurvey();
     }
-    // Por ahora no necesitamos lógica compleja, 
-    // solo flujo controlado
+    // si quieres mantener saludo extra:
+    if (lower.includes("hola") && !lower.includes("empezar")) {
+      const msg = "¡Encantado de saludarte! Escribe 'empezar' para iniciar 🚀";
+      this.actionProvider.setState((prev) => ({
+        ...prev,
+        messages: [
+          ...prev.messages,
+          this.actionProvider.createChatBotMessage(msg),
+        ],
+      }));
+    }
   }
 }
 
