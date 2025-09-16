@@ -9,7 +9,7 @@ const ChatbotWrapper = () => {
   return (
     <div style={{ maxWidth: "400px" }}>
       <Chatbot
-        config={config}              // 👈 minúscula
+        config={config}              
         messageParser={MessageParser}
         actionProvider={ActionProvider}
       />
