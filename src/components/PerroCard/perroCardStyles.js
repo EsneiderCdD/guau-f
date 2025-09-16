@@ -128,6 +128,20 @@ const perroCardStyles = {
       left: "50%"
     },
   },
+   11: {
+    imagenUno: {
+      width: "auto",
+      top: "40%",
+      height: "90%",
+      left: "50%"
+    },
+    imagenDos: {
+      width: "auto",
+      top: "37%",
+      height: "100%",
+      left: "50%"
+    },
+  },
 }
 
 export default perroCardStyles
