@@ -1,4 +1,6 @@
+// src/components/test/chatbot/ActionProvider.jsx
 import { createChatBotMessage } from "react-chatbot-kit";
+import { callOnChatbotComplete } from "./chatbotBridge"; // <-- nueva importación
 
 class ActionProvider {
   constructor(createChatBotMessage, setStateFunc) {
@@ -6,14 +8,12 @@ class ActionProvider {
     this.setState = setStateFunc;
   }
 
-  // manejar respuesta
   handleAnswer = (id, value) => {
     this.setState((prev) => {
       const respuestas = { ...prev.respuestas, [id]: value };
       const nextIndex = prev.preguntaIndex + 1;
 
       if (nextIndex < prev.preguntas.length) {
-        // siguiente pregunta
         const siguiente = prev.preguntas[nextIndex];
         const msg = this.createChatBotMessage(`${siguiente.texto}`, {
           widget: "opcionesNumericas",
@@ -27,11 +27,20 @@ class ActionProvider {
       } else {
         // fin → calcular resultado
         const result = this.calcularPerfil(respuestas, prev.preguntas);
+
         const msg = this.createChatBotMessage(
           `¡Listo! 🎉\nTu vector es [${result.vector.join(
             ", "
           )}]\nÍndice global: ${result.indiceGlobal} / 4`
         );
+
+        // NOTIFICAR al exterior (ChatbotWrapper) con el vector del usuario
+        try {
+          callOnChatbotComplete(result.vector);
+        } catch (e) {
+          console.error("Error notificando finalización del chatbot:", e);
+        }
+
         return {
           ...prev,
           respuestas,
@@ -42,7 +51,6 @@ class ActionProvider {
     });
   };
 
-  // cálculo igual a EncuestaForm
   calcularPerfil = (respuestas, preguntas) => {
     const porDimension = {
       tiempo: [],
@@ -72,7 +80,6 @@ class ActionProvider {
     return { vector, indiceGlobal };
   };
 
-  // inicia con la primera pregunta
   startSurvey = () => {
     this.setState((prev) => {
       const primera = prev.preguntas[0];
