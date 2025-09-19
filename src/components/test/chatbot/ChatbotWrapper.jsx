@@ -1,10 +1,10 @@
 // src/components/test/chatbot/ChatbotWrapper.jsx
-import React, { useEffect, useState } from "react";
-import ChatUI from "./ChatUI";
-import { preguntas } from "./preguntas";
-import { setOnChatbotComplete } from "./chatbotBridge";
+import { useEffect, useState, useRef } from "react";
+import { setOnChatbotComplete } from "./chatbotBridge.js";
 import useMatchUsuario from "@hooks/useMatchUsuario";
 import CompatibilidadResultados from "@components/compatibilidad/CompatibilidadResultados";
+import ChatUI from "./ChatUI";
+import { preguntas } from "./preguntas";
 
 const ChatbotWrapper = () => {
   const {
@@ -12,30 +12,32 @@ const ChatbotWrapper = () => {
     compatibilidad,
     fetchPerfil,
     savePerfil,
-    fetchCompatibilidad
+    fetchCompatibilidad,
   } = useMatchUsuario();
 
   const [usuarioVector, setUsuarioVector] = useState(null);
+  const chatRef = useRef(null);
 
-  // traer perfil guardado
+  // Al montar → intentamos traer perfil ya guardado
   useEffect(() => {
     fetchPerfil();
   }, []);
 
-  // cuando llega perfil, seteamos vector y pedimos compatibilidad
+  // Cuando tengamos perfil en DB → pedimos compatibilidad
   useEffect(() => {
     if (perfil) {
+      // Backend devuelve propiedades sueltas, no un array
       setUsuarioVector([
         perfil.energia,
         perfil.apego_vinculo,
         perfil.regulacion_emocional,
-        perfil.exploracion_libertad
+        perfil.exploracion_libertad,
       ]);
       fetchCompatibilidad();
     }
   }, [perfil]);
 
-  // callback de finalización
+  // Callback desde el chatbot → guardamos en back
   useEffect(() => {
     setOnChatbotComplete(async (vector) => {
       try {
@@ -50,13 +52,15 @@ const ChatbotWrapper = () => {
 
   return (
     <div>
+      {/* Si NO hay perfil → mostramos entrevista */}
       {!perfil && (
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <div ref={chatRef}>
           <ChatUI preguntas={preguntas} />
         </div>
       )}
 
-      {usuarioVector && compatibilidad && compatibilidad.length > 0 && (
+      {/* Si hay vector y compatibilidad → mostramos resultados */}
+      {usuarioVector && compatibilidad.length > 0 && (
         <div style={{ padding: "10px" }}>
           <CompatibilidadResultados
             usuarioVector={usuarioVector}
