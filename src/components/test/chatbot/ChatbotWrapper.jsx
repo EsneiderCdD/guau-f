@@ -1,13 +1,14 @@
-// src/components/test/chatbot/ChatbotWrapper.jsx
 import React, { useEffect, useState } from "react"
 import Chatbot from "react-chatbot-kit"
-import "react-chatbot-kit/build/main.css"
+
 import config from "./Config"
 import MessageParser from "./MessageParser"
 import ActionProvider from "./ActionProvider"
 import { setOnChatbotComplete } from "./chatbotBridge.js"
 import CompatibilidadResultados from "@components/compatibilidad/CompatibilidadResultados"
 import useMatchUsuario from "@hooks/useMatchUsuario"
+
+import styles from "./ChatbotWrapper.module.css"
 
 const ChatbotWrapper = () => {
   const {
@@ -20,7 +21,7 @@ const ChatbotWrapper = () => {
 
   const [usuarioVector, setUsuarioVector] = useState(null)
 
-  // Al montar, intentamos traer perfil ya guardado
+  // Al montar → intentamos traer perfil ya guardado
   useEffect(() => {
     fetchPerfil()
   }, [])
@@ -52,25 +53,39 @@ const ChatbotWrapper = () => {
   }, [])
 
   return (
-    <div style={{ maxWidth: "400px", margin: "0 auto" }}>
+    <div className={styles.chatContainer}>
+      {/* Cabecera */}
+      <div className={styles.chatHeader}>Conversation with Asistente</div>
+
       {/* Si NO hay perfil → mostramos entrevista */}
       {!perfil && (
-        <Chatbot
-          config={config}
-          messageParser={MessageParser}
-          actionProvider={ActionProvider}
-        />
+        <div className={styles.chatMessages}>
+          <Chatbot
+            config={config}
+            messageParser={MessageParser}
+            actionProvider={ActionProvider}
+          />
+        </div>
       )}
 
       {/* Si hay vector y compatibilidad → mostramos resultados */}
       {usuarioVector && compatibilidad.length > 0 && (
-        <div style={{ marginTop: 18 }}>
+        <div style={{ padding: "10px" }}>
           <CompatibilidadResultados
             usuarioVector={usuarioVector}
             resultados={compatibilidad}
           />
         </div>
       )}
+
+      {/* Input → el de react-chatbot-kit ya lo incluye, 
+          pero si quieres reemplazarlo por uno propio, aquí va */}
+      {/* 
+      <div className={styles.chatInput}>
+        <input type="text" placeholder="Escribe un mensaje..." />
+        <button>Enviar</button>
+      </div>
+      */}
     </div>
   )
 }
