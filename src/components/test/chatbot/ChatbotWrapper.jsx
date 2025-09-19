@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import Chatbot from "react-chatbot-kit"
-
 import config from "./Config"
 import MessageParser from "./MessageParser"
 import ActionProvider from "./ActionProvider"
 import { setOnChatbotComplete } from "./chatbotBridge.js"
 import CompatibilidadResultados from "@components/compatibilidad/CompatibilidadResultados"
 import useMatchUsuario from "@hooks/useMatchUsuario"
-
-import styles from "./ChatbotWrapper.module.css"
 
 const ChatbotWrapper = () => {
   const {
@@ -20,6 +17,7 @@ const ChatbotWrapper = () => {
   } = useMatchUsuario()
 
   const [usuarioVector, setUsuarioVector] = useState(null)
+  const chatRef = useRef(null)
 
   // Al montar → intentamos traer perfil ya guardado
   useEffect(() => {
@@ -53,13 +51,10 @@ const ChatbotWrapper = () => {
   }, [])
 
   return (
-    <div className={styles.chatContainer}>
-      {/* Cabecera */}
-      <div className={styles.chatHeader}>Conversation with Asistente</div>
-
+    <div>
       {/* Si NO hay perfil → mostramos entrevista */}
       {!perfil && (
-        <div className={styles.chatMessages}>
+        <div ref={chatRef}>
           <Chatbot
             config={config}
             messageParser={MessageParser}
@@ -77,15 +72,6 @@ const ChatbotWrapper = () => {
           />
         </div>
       )}
-
-      {/* Input → el de react-chatbot-kit ya lo incluye, 
-          pero si quieres reemplazarlo por uno propio, aquí va */}
-      {/* 
-      <div className={styles.chatInput}>
-        <input type="text" placeholder="Escribe un mensaje..." />
-        <button>Enviar</button>
-      </div>
-      */}
     </div>
   )
 }
