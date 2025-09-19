@@ -1,11 +1,10 @@
-import { useEffect, useState, useRef } from "react"
-import Chatbot from "react-chatbot-kit"
-import config from "./Config"
-import MessageParser from "./MessageParser"
-import ActionProvider from "./ActionProvider"
-import { setOnChatbotComplete } from "./chatbotBridge.js"
-import CompatibilidadResultados from "@components/compatibilidad/CompatibilidadResultados"
-import useMatchUsuario from "@hooks/useMatchUsuario"
+// src/components/test/chatbot/ChatbotWrapper.jsx
+import React, { useEffect, useState } from "react";
+import ChatUI from "./ChatUI";
+import { preguntas } from "./preguntas";
+import { setOnChatbotComplete } from "./chatbotBridge";
+import useMatchUsuario from "@hooks/useMatchUsuario";
+import CompatibilidadResultados from "@components/compatibilidad/CompatibilidadResultados";
 
 const ChatbotWrapper = () => {
   const {
@@ -14,17 +13,16 @@ const ChatbotWrapper = () => {
     fetchPerfil,
     savePerfil,
     fetchCompatibilidad
-  } = useMatchUsuario()
+  } = useMatchUsuario();
 
-  const [usuarioVector, setUsuarioVector] = useState(null)
-  const chatRef = useRef(null)
+  const [usuarioVector, setUsuarioVector] = useState(null);
 
-  // Al montar → intentamos traer perfil ya guardado
+  // traer perfil guardado
   useEffect(() => {
-    fetchPerfil()
-  }, [])
+    fetchPerfil();
+  }, []);
 
-  // Cuando tengamos perfil en DB → pedimos compatibilidad
+  // cuando llega perfil, seteamos vector y pedimos compatibilidad
   useEffect(() => {
     if (perfil) {
       setUsuarioVector([
@@ -32,39 +30,33 @@ const ChatbotWrapper = () => {
         perfil.apego_vinculo,
         perfil.regulacion_emocional,
         perfil.exploracion_libertad
-      ])
-      fetchCompatibilidad()
+      ]);
+      fetchCompatibilidad();
     }
-  }, [perfil])
+  }, [perfil]);
 
-  // Callback desde el chatbot → guardamos en back
+  // callback de finalización
   useEffect(() => {
     setOnChatbotComplete(async (vector) => {
       try {
-        await savePerfil(vector)
-        await fetchCompatibilidad()
+        await savePerfil(vector);
+        await fetchCompatibilidad();
       } catch (err) {
-        console.error("Error guardando perfil:", err)
+        console.error("Error guardando perfil:", err);
       }
-    })
-    return () => setOnChatbotComplete(null)
-  }, [])
+    });
+    return () => setOnChatbotComplete(null);
+  }, [savePerfil, fetchCompatibilidad]);
 
   return (
     <div>
-      {/* Si NO hay perfil → mostramos entrevista */}
       {!perfil && (
-        <div ref={chatRef}>
-          <Chatbot
-            config={config}
-            messageParser={MessageParser}
-            actionProvider={ActionProvider}
-          />
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <ChatUI preguntas={preguntas} />
         </div>
       )}
 
-      {/* Si hay vector y compatibilidad → mostramos resultados */}
-      {usuarioVector && compatibilidad.length > 0 && (
+      {usuarioVector && compatibilidad && compatibilidad.length > 0 && (
         <div style={{ padding: "10px" }}>
           <CompatibilidadResultados
             usuarioVector={usuarioVector}
@@ -73,7 +65,7 @@ const ChatbotWrapper = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default ChatbotWrapper
+export default ChatbotWrapper;
