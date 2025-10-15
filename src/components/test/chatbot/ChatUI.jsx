@@ -3,11 +3,11 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./Chatbot.module.css";
 import MessageList from "./MessageList";
 import { callOnChatbotComplete } from "./chatbotBridge";
+import { MotorBasico } from "../motor/motorBasico"; // 👈 nuevo import
 
 const ChatUI = ({ preguntas }) => {
   const [messages, setMessages] = useState([]);
   const [respuestas, setRespuestas] = useState({});
-  const [preguntaIndex, setPreguntaIndex] = useState(0);
   const inputRef = useRef(null);
   const containerRef = useRef(null);
 
@@ -25,18 +25,25 @@ const ChatUI = ({ preguntas }) => {
 
   const pushMessage = (msg) => setMessages((prev) => [...prev, msg]);
 
+  /** 🚀 Inicia el flujo controlado por el motor */
   const startSurvey = () => {
     if (!preguntas.length) return;
-    const primera = preguntas[0];
+
+    // Inicializamos el motor con las preguntas
+    MotorBasico.iniciar(preguntas);
+
+    const actual = MotorBasico.obtenerActual();
+    if (!actual) return;
+
     pushMessage({
-      id: `q-${primera.id}`,
+      id: `q-${actual.id}`,
       type: "question",
-      text: primera.texto,
-      questionId: primera.id,
+      text: actual.texto,
+      questionId: actual.id,
     });
-    setPreguntaIndex(0);
   };
 
+  /** 💬 Procesa comandos del usuario ("empezar", "listo") */
   const handleUserText = (text) => {
     if (!text) return;
     const trimmed = text.trim();
@@ -47,41 +54,47 @@ const ChatUI = ({ preguntas }) => {
     if (lower === "listo") finishSurvey();
   };
 
+  /** 🧩 Maneja respuesta del usuario */
   const handleAnswer = (questionId, value) => {
+    // Registramos respuesta en el motor
+    MotorBasico.registrarRespuesta(questionId, value);
+
+    // Guardamos respuesta también localmente (para compatibilidad UI)
     setRespuestas((prev) => ({ ...prev, [questionId]: value }));
 
-    const current = preguntas[preguntaIndex];
-    if (current && current.id === questionId) {
-      const nextIndex = preguntaIndex + 1;
-      setPreguntaIndex(nextIndex);
+    const estado = MotorBasico.getEstado();
+    const siguiente = MotorBasico.obtenerSiguiente();
 
-      if (nextIndex < preguntas.length) {
-        const siguiente = preguntas[nextIndex];
-        pushMessage({
-          id: `q-${siguiente.id}`,
-          type: "question",
-          text: siguiente.texto,
-          questionId: siguiente.id,
-        });
-      } else {
-        pushMessage({
-          id: `info-finished`,
-          type: "bot",
-          text: '✅ Has respondido todas las preguntas. Escribe "listo" para enviar.',
-        });
-      }
+    if (estado.terminado || !siguiente) {
+      pushMessage({
+        id: `info-finished`,
+        type: "bot",
+        text: '✅ Has respondido todas las preguntas. Escribe "listo" para enviar.',
+      });
+      return;
     }
+
+    // Mostrar la siguiente pregunta
+    pushMessage({
+      id: `q-${siguiente.id}`,
+      type: "question",
+      text: siguiente.texto,
+      questionId: siguiente.id,
+    });
   };
 
+  /** 🧮 Finaliza y calcula resultados */
   const finishSurvey = () => {
     const porDimension = { tiempo: [], experiencia: [], apego: [], motivacion: [] };
+
     preguntas.forEach((q) => {
-      if (q.dimension && respuestas[q.id] !== undefined) {
-        porDimension[q.dimension].push(respuestas[q.id]);
+      const valor = respuestas[q.id];
+      if (q.dimension && valor !== undefined) {
+        porDimension[q.dimension].push(valor);
       }
     });
 
-    const avg = (arr) => arr.length ? arr.reduce((a,b) => a+b,0) / arr.length : 0;
+    const avg = (arr) => (arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0);
 
     const pTiempo = Number(avg(porDimension.tiempo).toFixed(2));
     const pExp = Number(avg(porDimension.experiencia).toFixed(2));
@@ -89,7 +102,7 @@ const ChatUI = ({ preguntas }) => {
     const pMotiv = Number(avg(porDimension.motivacion).toFixed(2));
 
     const vector = [pTiempo, pExp, pApego, pMotiv];
-    const indiceGlobal = Math.round(((pTiempo+pExp+pApego+pMotiv)/4)*100)/100;
+    const indiceGlobal = Math.round(((pTiempo + pExp + pApego + pMotiv) / 4) * 100) / 100;
 
     pushMessage({
       id: `final-${Date.now()}`,
@@ -97,13 +110,17 @@ const ChatUI = ({ preguntas }) => {
       text: `🎉 Listo!\nTu vector es [${vector.join(", ")}]\nÍndice global: ${indiceGlobal} / 4`,
     });
 
-    try { callOnChatbotComplete(vector); }
-    catch (e) { console.error("Error notificando:", e); }
+    try {
+      callOnChatbotComplete(vector);
+    } catch (e) {
+      console.error("Error notificando:", e);
+    }
   };
 
   return (
     <div className={styles.chatContainer}>
       <div className={styles.chatHeader}>Asistente</div>
+
       <div className={styles.chatMessageContainer} ref={containerRef}>
         <MessageList
           messages={messages}
@@ -112,6 +129,7 @@ const ChatUI = ({ preguntas }) => {
           onAnswer={handleAnswer}
         />
       </div>
+
       <div className={styles.chatInputContainer}>
         <input
           ref={inputRef}
