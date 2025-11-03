@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./Chatbot.module.css";
 import MessageList from "./MessageList";
 import { callOnChatbotComplete } from "./chatbotBridge";
-import { MotorBasico } from "../motor/motorBasico"; // 👈 nuevo import
+import { MotorBasico } from "./motor/motorBasico";
 
 const ChatUI = ({ preguntas }) => {
   const [messages, setMessages] = useState([]);
